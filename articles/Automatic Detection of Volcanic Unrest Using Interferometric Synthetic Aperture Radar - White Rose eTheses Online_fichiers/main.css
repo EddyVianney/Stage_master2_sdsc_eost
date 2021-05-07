@@ -1,0 +1,437 @@
+/****************************************
+
+ Main Stylesheet for Bootstrap (EPrints)
+ 
+
+ This stylesheet tidies up some parts
+ of the EPrints interface to work with
+ Bootstrap by Twitter
+
+****************************************/
+
+
+#ep_menu_toggle{
+border-color: #ddd
+}
+
+#ep_menu_toggle span.icon-bar {
+border-color: #888
+}
+
+/******************************
+ Blocking element that obscures 
+ page until javascript has 
+ finished transforming it. 
+*******************************/
+
+#blocker {
+height: 100%;
+width: 100%;
+position: fixed;
+top: 0px;
+background-color: #fff;
+z-index: 100000;
+background-image: url('/bootstrap_assets/Images/loading18.gif');
+background-repeat: no-repeat;
+background-position: center center;
+}
+
+
+/*******
+ Footer
+*******/
+ 
+/* 
+footer.bs-footer {
+
+padding-top: 40px;
+padding-bottom: 40px;
+margin-top: 100px;
+color: #777;
+text-align: center;
+border-top: 1px solid #e5e5e5;
+
+}
+*/
+/* ##########===============###################================############==============############# */
+
+#footer-nav {
+  color: #222;
+  background-color: #2b2c2e;
+  padding: 20px 0;
+}
+#footer-brand {
+  background-color:#1c1d1f;
+  color: white;
+  padding: 20px 0;
+}
+#footer-nav a, #footer-nav a:visited, #footer-brand a, #footer-brand a:visited, #summarypage_right .summary-widget a, #summarypage_right .summary-widget a:visited {
+  /*color: #489fd9;*/
+  color: #939596;
+  background-color: inherit;
+} 
+#footer-nav a:hover, #footer-brand a:hover, #summarypage_right .summary-widget a:hover  {
+  /* color: #337ab7; */
+  color: #d2d7d9;
+  text-decoration: underline;
+} 
+#summarypage_right .summary-widget a, #summarypage_right .summary-widget a:visited {
+  color:black;
+  text-decoration:underline;
+}
+#summarypage_right .summary-widget a:hover  {
+  color: #d2d7d9;
+}
+#summarypage_right .summary-widget .panel a, #summarypage_right .summary-widget .panel a:visited {
+  color:#333333;
+}
+#summarypage_right .summary-widget .panel a:hover  {
+  color: #333333;
+}
+/*
+#footer-nav div.col-md-4 {
+  border-right: 1px solid white;
+}
+#footer-nav div.col-md-4:last-child {
+  border-right: none;
+}
+#footer-brand div.col-md-8 {
+  border-right: 1px solid white;
+}
+*/
+#footer-nav h2, #footer-nav h3 {
+  color: #fff;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed','Open Sans',sans-serif;
+  font-size: 18px;
+}
+
+#footer-nav ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 16px;
+}
+
+footer.bs-footer {
+
+padding-top: 00px;
+padding-bottom: 0px;
+margin-top: 0px;
+/* color: #222;
+background-color: #5c5c5c; */
+/*text-align: center;*/
+border-top: 1px solid #e5e5e5;
+
+}
+footer.bs-footer div.row div.row {
+/* padding: 20px 15px; */
+}
+
+body {
+ padding-top:50px;
+}
+header div#eprints_header {
+background-color: #5c5c5c;
+color:white;
+}
+header div#eprints_header .navbar-brand a {
+font-size: 36pt;
+}
+header div#eprints_header .navbar-brand a span {
+font-size:20pt;
+}
+
+/*
+.navbar-nav>li {
+  float: none;
+}
+*/
+@media(max-width:479px){
+  a.navbar-brand {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2em;
+    font-size: 5.3vw;
+    padding-left: 0px;
+  }
+}
+@media(min-width:480px){
+  a.navbar-brand {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.1em;
+    padding-left: 0px;
+  }
+}
+/*
+a.navbar-brand {
+  color: black;
+  font-family: 'Open Sans', sans-serif; 
+  font-size: 30px;
+  padding-left: 0px;
+}
+*/
+a.navbar-brand span.wreo-wr {
+  font-family: Oswald, 'Open Sans', sans-serif;
+  font-size: 80%;
+}
+.navbar-fixed-top {
+  border-bottom: 1px #587898 solid;
+  background-color:white; 
+}
+.navbar-fixed-top ul.nav {
+  font-family: 'Roboto','Open Sans',sans-serif;
+  font-size: 16px;
+}
+
+#homepage_title {
+  margin-bottom: 20px;
+}
+#homepage_title h1 {
+  margin-top: 20px;
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-size: 100px;
+  font-weight: 300;
+  text-align: left;
+}
+#homepage_title h1 span {
+  margin-top: 0px;
+  font-family: Oswald, sans-serif;
+  color: #1c1c1c;
+  font-size: 25px;
+  font-weight: 500;
+  text-indent: 0px;
+  display:block;
+  line-height: 10px;
+}
+
+/*@media(min-width:768px){
+*/
+#homepage_title .img-responsive {
+   max-width: 50%;
+ }
+/* } */
+
+#homepage_content {
+  background-color: #4dbd90;
+  color: black;
+  padding-top: 20px;
+/*  padding-bottom: 100px; */
+}
+
+#homepage_content div.homepage-search {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  font-size: 20px;
+  font-weight: 300;
+}
+#homepage_content .welcome {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-size: 30px;
+  line-height: 44px;
+}
+#homepage_content input.ep_tm_searchbarbox {
+  color: black;
+}
+#homepage_content a {
+  color: black;
+  text-decoration: underline;
+}
+#homepage_content a:hover {
+  color: #2b2c2e;
+}
+
+#main_page {
+  padding-bottom: 30px;
+}
+#main_page h1,
+#main_page .h1 {
+  text-align: left;
+}
+/*
+#main_page h1,
+#main_page .h1 {
+  text-align: left;
+  font-size: 36px;
+}
+#main_page h2,
+#main_page .h2 {
+  font-size: 30px;
+}
+#main_page h3,
+#main_page .h3 {
+  font-size: 23px;
+}
+#main_page h4,
+#main_page .h4 {
+  font-size: 17px;
+}
+#main_page h5,
+#main_page .h5 {
+  font-size: 14px;
+}
+#main_page h6,
+#main_page .h6 {
+  font-size: 11px;
+}
+*/
+
+/* .orcid + .tooltip > .tooltip-arrow */ 
+.person + .tooltip > .tooltip-inner,
+.orcid + .tooltip > .tooltip-inner {
+  background-color: #A6CE39;
+  border: 1px solid #000000;
+  white-space: pre;
+  max-width: none;
+}
+.person + .tooltip.in,
+.orcid + .tooltip.in {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+a:visited {
+  color: #2578b0;
+  color: #789858;
+  color: #985878;
+}
+a.navbar-brand:visited {
+  color:inherit;
+}
+a.navbar-brand:hover {
+  text-decoration:underline;
+}
+
+#summarypage_right .summary-widget {
+    background-color: #4dbd90;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    color:black;
+}
+/*
+#summarypage_right .summary-widget a {
+    color: white;
+}
+*/
+#summarypage_right .summary-widget a a{
+color: black;
+}
+@media (max-width: 767px) {
+    .navbar-fixed-top {
+        position: relative;
+        top: auto;
+    }
+    .navbar-collapse {
+        max-height: none;
+    }
+    body {
+        margin: 0;
+	padding-top: 0;
+    }
+}
+
+input[type="checkbox"].form-control {
+    height: inherit;
+    width: inherit;
+}
+
+.person:hover {border-bottom: 1px dashed #a6ce39;}
+.orcid {}
+.orcid a:hover {
+        color: #a6ce39;
+}
+
+#summary_downloads p.filename
+{
+	word-break: break-all;
+}
+
+.modal-backdrop {
+	z-index:-1;
+}
+
+#ep_export_bar
+{
+  margin-top: 1em;
+}
+#ep_export_bar .form-control {
+  padding: 6px 0;
+}
+
+ul.creators {
+  padding-left:0;
+  margin-bottom:0;
+}
+.creators li {
+  list-style: none;
+  margin-left:17px;
+}
+ul.datesdatesdates {
+  padding-left: 0;
+  margin-bottom:0;
+}
+.datesdatesdates li {
+    list-style:none;
+    margin-left:17px;
+}
+.datesdatesdates li:before, .creators li:before {
+    /*Using a Bootstrap glyphicon as the bullet point*/
+    content: "\e109";
+    font-family: 'Glyphicons Halflings';
+    font-size: 12px;
+    float: left;
+    margin-top: 2px;
+    margin-left: -17px;
+    color: #777777;
+}
+.creators li:before {
+  content: "\e008";
+}
+
+.navbar-brand > img {
+  display:inline;
+  margin-top: -8px;
+}
+
+.ep_subjectinput_add_button, .ep_subjectinput_remove_button {
+  padding:0.2em 0.5em;
+  margin-bottom: 0.2em;
+}
+.ep_subjectinput_tree dl dt.ep_subjectinput_tree, .ep_subjectinput_tree dl dt.ep_subjectinput_tree dt {
+  background-position: 0 50%;
+}
+
+.overflow-fade-out {
+  overflow:hidden;
+  max-height: 10em; 
+}
+.overflow-fade-out:before {
+  content:'';
+  width:100%;
+  height:100%;    
+  position:absolute;
+  left:0;
+  top:0;
+  background:linear-gradient(transparent 50px, white);       
+}
+
+#summarypage_right .summary-widget .panel a.btn-primary,
+#summarypage_right .summary-widget .panel a.btn-primary:visited {
+  color: #ffffff;
+  background-color: #587898;
+  border-color: #939596;
+  text-decoration:none;
+}
+
+#summarypage_right .summary-widget .panel a.btn-primary:hover,
+#summarypage_right .summary-widget .panel a.btn-primary:focus,
+#summarypage_right .summary-widget .panel a.btn-primary:active {
+  background-color: #d2d7d9;
+  color:#333333;
+}
+

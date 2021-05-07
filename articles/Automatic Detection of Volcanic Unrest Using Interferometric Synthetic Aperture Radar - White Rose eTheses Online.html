@@ -1,0 +1,1424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/shares.json"></script><script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/300lo.js"></script><script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/_ate.js"></script><script id="recommender-embed" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/embed.js"></script><script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/moatframe.js"></script>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>
+			 Automatic Detection of Volcanic Unrest Using Interferometric Synthetic Aperture Radar  - White Rose eTheses Online
+		</title>
+		<link rel="icon" href="http://etheses.whiterose.ac.uk/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="http://etheses.whiterose.ac.uk/favicon.ico" type="image/x-icon">
+			
+                <script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jquery.js">// <!-- No script --></script>
+	
+	 
+		<meta name="eprints.eprintid" content="24685">
+<meta name="eprints.rev_number" content="14">
+<meta name="eprints.userid" content="21303">
+<meta name="eprints.dir" content="disk0/00/02/46/85">
+<meta name="eprints.datestamp" content="2019-10-29 16:58:31">
+<meta name="eprints.lastmod" content="2021-03-25 16:45:43">
+<meta name="eprints.status_changed" content="2019-10-29 16:58:31">
+<meta name="eprints.type" content="thesis">
+<meta name="eprints.metadata_visibility" content="show">
+<meta name="eprints.wr_institution" content="Leeds">
+<meta name="eprints.use_contact_email" content="FALSE">
+<meta name="eprints.creators_name" content="Gaddes, Matthew Edward">
+<meta name="eprints.title" content="Automatic Detection of Volcanic Unrest Using Interferometric
+Synthetic Aperture Radar">
+<meta name="eprints.ispublished" content="unpub">
+<meta name="eprints.full_text_status" content="public">
+<meta name="eprints.keywords" content="InSAR,
+interferometric synthetic aperture radar,
+BSS,
+blind signal separation,
+ICA,
+independent component analysis,
+deep learning,
+keras,
+CNN,
+convolutional neural networks">
+<meta name="eprints.abstract" content="A diverse set of hazards are posed by the world's 1500 subaerial volcanoes, yet the majority of them remain unmonitored.  Measurements of deformation provide a way to monitor volcanoes, and synthetic aperture RaDAR (SAR) provides a powerful tool to measure deformation at the majority of the world's subaerial volcanoes.  This is due to recent changes in how regularly SAR data are acquired, how they are distributed to the scientific community, and how quickly they can be processed to create time series of interferograms.  However, for interferometric SAR (InSAR) to be used to monitor the world's volcanoes, an algorithm is required to automatically detect signs of deformation-generating volcanic unrest in a time series of interferograms, as the volume of new interferograms produced each week precludes this task being achieved by human interpreters.  In this thesis, I introduce two complementary methods that can be used to detect signs of volcanic unrest.  
+
+The first method centres on the use of blind signal separation (BSS) methods to isolate signals of geophysical interest from nuisance signals, such as those due to changes in the refractive index of the atmosphere between two SAR acquisitions.  This is achieved through first comparing which of non-negative matrix factorisation (NMF), principal component analysis (PCA), and independent component analysis (ICA) are best suited for solving BSS problems involving time series of InSAR data, and how InSAR data should best be arranged for its use with these methods.  I find that NMF can be used with InSAR data, providing the time series is formatted in a novel way that reduces the likelihood of any pixels having negative values.  However, when NMF, PCA, and ICA are applied to a set of synthetic data, I find that the most accurate recovery of signals of interest is achieved when ICA is set to recover spatially independent sources (termed sICA).  I find that the best results are produced by sICA when interferograms are ordered as a simple ``daisy chain'' of short temporal baselines, and when sICA is set to recover around 1-3 more sources than were thought to have contributed to the time series.  However, I also show that in cases such as deformation centred under a stratovolcano, the overlapping nature of a topographically correlated atmospheric phase screen (APS) signal and a deformation signal produces a pair of signals that are no longer spatially statistically independent, and so cannot be recovered accurately by sICA. 
+
+To validate these results, I apply sICA to a time series of Sentinel-1 interferograms that span the 2015 eruption of Wolf volcano (Galapagos archipelago, Ecuador) and automatically isolate three signals of geophysical interest, which I validate by comparing with the results of other studies.  I also apply the sICA algorithm to a time series of interferograms that image Mt Etna, and through isolating signals that are likely to be due to instability of the east flank of the volcano, show that the method can be applied to stratovolcanoes to recover useful signals.  Utilising the ability of sICA to isolate signals of interest, I introduce a prototype detection algorithm that tracks changes in the behaviour of a subaerial volcano, and show that it could have been used to detect the onset of the 2015 eruption of Wolf.  
+
+However, for use in an detection algorithm that is to be applied globally, the signals recovered by sICA cannot be manually validated through comparison with other studies.  Therefore, I seek to incorporate a module into my detection algorithm that is able to quantify the significance of the sources recovered by sICA.  I achieve this through extensively modernising the ICASO algorithm to create a new algorithm, ICASAR, that is optimised for use with InSAR time series.  This algorithm allows me to assess the significance of signals recovered by sICA at a given volcano, and to then prioritise the tracking of any changes they exhibit when they are used in my detection algorithm.  
+
+To further develop the detection algorithm, I create two synthetic time series that characterise the different types of unrest that could occur at a volcanic centre.  The first features the introduction of a new signal, and my algorithm is able to detect when this signal enters the time series by tracking how well the baseline sources are able to fit new interferograms.  The second features the change in rate of a signal that was present during the baseline stage, and my algorithm is able to detect when this change in rate occurs by tracking how sources recovered from the baseline data are used through time.  To further test the algorithm, I extended the Sentinel-1 time series I used to study the 2015 eruption of Wolf to include the 2018 eruption of Sierra Negra, and I find that my algorithm is able to detect the increase in inflation that precedes the eruption, and the eruption itself.  
+
+I also perform a small study into the pre-eruptive inflation seen at Sierra Negra using the deformation signal and its time history that are outputted by ICASAR.  A Bayesian inversion is performed using the GBIS software package, in which the inflation signal is modelled as a horizontal rectangular dislocation with variable opening and uniform overpressure.  Coupled with the time history of the inflation signal provided by ICASAR, this allows me to determine the temporal evolution of the pre-eruptive overpressure since the beginning of the Sentinel-1 time series in 2014.  To extend this back to the end of the previous eruption in 2005, I use GPS data that spans the entire interruptive period.  I find that the total interruptive pressure change is ~13.5 MPa, which is significantly larger than the values required for tensile failure of an elastic medium overlying an inflating body.  I conclude that it is likely that one or more processes occurred to reduce the overpressure within the sill, and that the change in rate of inflation prior to the final failure of the sill is unlikely to be coincidental.  
+
+The second method I develop to detect volcanic deformation in a time series of interferograms uses a convolutional neural network (CNN) to classify and locate deformation signals as each new interferogram is added to the time series.  I achieve this through building a model that uses the five convolutional blocks of a previously state-of-the-art classification and localisation model, VGG16, but incorporates a classification output/head, and a localisation output/head.  In order to train the model, I perform transfer learning and utilise the weights made freely available for the convolutional blocks of a version of VGG16 that was trained to classify natural images.  I then synthesise a set of training data, but find that better performance is achieved on a testing set of Sentinel-1 interferograms when the model is trained with a mixture of both synthetic and real data.  I conclude that CNNs can be built that are able to differentiate between different styles of volcanic deformation, and that they can perform localisation by globally reasoning with a 224 x 224 pixel interferogram without the need for a sliding window approach.  
+
+The results I present in this thesis show that many machine learning methods can be applied to both time series of interferograms, and individual interferograms.  sICA provides a powerful tool to separate some geophysical signals from atmospheric ones, and the ICASAR algorithm that I develop allows a user to evaluate the significance of the results provided by sICA.  I incorporate these methods into an deformation detection algorithm, and show that this could be used to detect several types of volcanic unrest using data produced by the latest generation of SAR satellites.    Additionally, the CNN I develop is able to differentiate between deformation signals in a single interferogram, and provides a complementary way to monitor volcanoes using InSAR.  ">
+<meta name="eprints.date" content="2019-05">
+<meta name="eprints.date_type" content="submitted">
+<meta name="eprints.publisher" content="University of Leeds">
+<meta name="eprints.pages" content="174">
+<meta name="eprints.id_number" content="uk.bl.ethos.789436">
+<meta name="eprints.institution" content="University of Leeds">
+<meta name="eprints.thesis_type" content="phd">
+<meta name="eprints.related_url_url" content="https://github.com/mattcyp88/ICASAR">
+<meta name="eprints.related_url_url" content="https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JB016210">
+<meta name="eprints.related_url_type" content="project">
+<meta name="eprints.related_url_type" content="related_publication">
+<meta name="eprints.related_url_description" content="Software package">
+<meta name="eprints.student_id" content="200912212">
+<meta name="eprints.supervisor_email" content="a.hooper@leeds.ac.uk">
+<meta name="eprints.supervisor" content="Hooper, Andy">
+<meta name="eprints.supervisor" content="Wright, Tim">
+<meta name="eprints.fundersgrants_name" content="LiCS (COMET)">
+<meta name="eprints.iau" content="Leeds.RC-EARS_4">
+<meta name="eprints.eprint_status" content="archive">
+<meta name="eprints.citation" content="   Gaddes, Matthew Edward  (2019) Automatic Detection of Volcanic Unrest Using Interferometric Synthetic Aperture Radar.  PhD thesis, University of Leeds.   ">
+<meta name="eprints.document_url" content="https://etheses.whiterose.ac.uk/24685/1/meg_thesis.pdf">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<meta name="DC.relation" content="http://etheses.whiterose.ac.uk/24685/">
+<meta name="DC.title" content="Automatic Detection of Volcanic Unrest Using Interferometric
+Synthetic Aperture Radar">
+<meta name="DC.creator" content="Gaddes, Matthew Edward">
+<meta name="DC.description" content="A diverse set of hazards are posed by the world's 1500 subaerial volcanoes, yet the majority of them remain unmonitored.  Measurements of deformation provide a way to monitor volcanoes, and synthetic aperture RaDAR (SAR) provides a powerful tool to measure deformation at the majority of the world's subaerial volcanoes.  This is due to recent changes in how regularly SAR data are acquired, how they are distributed to the scientific community, and how quickly they can be processed to create time series of interferograms.  However, for interferometric SAR (InSAR) to be used to monitor the world's volcanoes, an algorithm is required to automatically detect signs of deformation-generating volcanic unrest in a time series of interferograms, as the volume of new interferograms produced each week precludes this task being achieved by human interpreters.  In this thesis, I introduce two complementary methods that can be used to detect signs of volcanic unrest.  
+
+The first method centres on the use of blind signal separation (BSS) methods to isolate signals of geophysical interest from nuisance signals, such as those due to changes in the refractive index of the atmosphere between two SAR acquisitions.  This is achieved through first comparing which of non-negative matrix factorisation (NMF), principal component analysis (PCA), and independent component analysis (ICA) are best suited for solving BSS problems involving time series of InSAR data, and how InSAR data should best be arranged for its use with these methods.  I find that NMF can be used with InSAR data, providing the time series is formatted in a novel way that reduces the likelihood of any pixels having negative values.  However, when NMF, PCA, and ICA are applied to a set of synthetic data, I find that the most accurate recovery of signals of interest is achieved when ICA is set to recover spatially independent sources (termed sICA).  I find that the best results are produced by sICA when interferograms are ordered as a simple ``daisy chain'' of short temporal baselines, and when sICA is set to recover around 1-3 more sources than were thought to have contributed to the time series.  However, I also show that in cases such as deformation centred under a stratovolcano, the overlapping nature of a topographically correlated atmospheric phase screen (APS) signal and a deformation signal produces a pair of signals that are no longer spatially statistically independent, and so cannot be recovered accurately by sICA. 
+
+To validate these results, I apply sICA to a time series of Sentinel-1 interferograms that span the 2015 eruption of Wolf volcano (Galapagos archipelago, Ecuador) and automatically isolate three signals of geophysical interest, which I validate by comparing with the results of other studies.  I also apply the sICA algorithm to a time series of interferograms that image Mt Etna, and through isolating signals that are likely to be due to instability of the east flank of the volcano, show that the method can be applied to stratovolcanoes to recover useful signals.  Utilising the ability of sICA to isolate signals of interest, I introduce a prototype detection algorithm that tracks changes in the behaviour of a subaerial volcano, and show that it could have been used to detect the onset of the 2015 eruption of Wolf.  
+
+However, for use in an detection algorithm that is to be applied globally, the signals recovered by sICA cannot be manually validated through comparison with other studies.  Therefore, I seek to incorporate a module into my detection algorithm that is able to quantify the significance of the sources recovered by sICA.  I achieve this through extensively modernising the ICASO algorithm to create a new algorithm, ICASAR, that is optimised for use with InSAR time series.  This algorithm allows me to assess the significance of signals recovered by sICA at a given volcano, and to then prioritise the tracking of any changes they exhibit when they are used in my detection algorithm.  
+
+To further develop the detection algorithm, I create two synthetic time series that characterise the different types of unrest that could occur at a volcanic centre.  The first features the introduction of a new signal, and my algorithm is able to detect when this signal enters the time series by tracking how well the baseline sources are able to fit new interferograms.  The second features the change in rate of a signal that was present during the baseline stage, and my algorithm is able to detect when this change in rate occurs by tracking how sources recovered from the baseline data are used through time.  To further test the algorithm, I extended the Sentinel-1 time series I used to study the 2015 eruption of Wolf to include the 2018 eruption of Sierra Negra, and I find that my algorithm is able to detect the increase in inflation that precedes the eruption, and the eruption itself.  
+
+I also perform a small study into the pre-eruptive inflation seen at Sierra Negra using the deformation signal and its time history that are outputted by ICASAR.  A Bayesian inversion is performed using the GBIS software package, in which the inflation signal is modelled as a horizontal rectangular dislocation with variable opening and uniform overpressure.  Coupled with the time history of the inflation signal provided by ICASAR, this allows me to determine the temporal evolution of the pre-eruptive overpressure since the beginning of the Sentinel-1 time series in 2014.  To extend this back to the end of the previous eruption in 2005, I use GPS data that spans the entire interruptive period.  I find that the total interruptive pressure change is ~13.5 MPa, which is significantly larger than the values required for tensile failure of an elastic medium overlying an inflating body.  I conclude that it is likely that one or more processes occurred to reduce the overpressure within the sill, and that the change in rate of inflation prior to the final failure of the sill is unlikely to be coincidental.  
+
+The second method I develop to detect volcanic deformation in a time series of interferograms uses a convolutional neural network (CNN) to classify and locate deformation signals as each new interferogram is added to the time series.  I achieve this through building a model that uses the five convolutional blocks of a previously state-of-the-art classification and localisation model, VGG16, but incorporates a classification output/head, and a localisation output/head.  In order to train the model, I perform transfer learning and utilise the weights made freely available for the convolutional blocks of a version of VGG16 that was trained to classify natural images.  I then synthesise a set of training data, but find that better performance is achieved on a testing set of Sentinel-1 interferograms when the model is trained with a mixture of both synthetic and real data.  I conclude that CNNs can be built that are able to differentiate between different styles of volcanic deformation, and that they can perform localisation by globally reasoning with a 224 x 224 pixel interferogram without the need for a sliding window approach.  
+
+The results I present in this thesis show that many machine learning methods can be applied to both time series of interferograms, and individual interferograms.  sICA provides a powerful tool to separate some geophysical signals from atmospheric ones, and the ICASAR algorithm that I develop allows a user to evaluate the significance of the results provided by sICA.  I incorporate these methods into an deformation detection algorithm, and show that this could be used to detect several types of volcanic unrest using data produced by the latest generation of SAR satellites.    Additionally, the CNN I develop is able to differentiate between deformation signals in a single interferogram, and provides a complementary way to monitor volcanoes using InSAR.  ">
+<meta name="DC.publisher" content="University of Leeds">
+<meta name="DC.date" content="2019-05">
+<meta name="DC.type" content="Thesis">
+<meta name="DC.type" content="NonPeerReviewed">
+<meta name="DC.format" content="text">
+<meta name="DC.language" content="en">
+<meta name="DC.rights" content="cc_by_nc_sa">
+<meta name="DC.identifier" content="https://etheses.whiterose.ac.uk/24685/1/meg_thesis.pdf">
+<meta name="DC.identifier" content="   Gaddes, Matthew Edward  (2019) Automatic Detection of Volcanic Unrest Using Interferometric Synthetic Aperture Radar.  PhD thesis, University of Leeds.   ">
+<meta name="DC.relation" content="uk.bl.ethos.789436">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/RDFXML/wreo-eprint-24685.rdf" type="application/rdf+xml" title="RDF+XML">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/BibTeX/wreo-eprint-24685.bib" type="text/plain" title="BibTeX">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/RIOXX2/wreo-eprint-24685.xml" type="text/xml; charset=utf-8" title="RIOXX2 XML">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/RDFNT/wreo-eprint-24685.nt" type="text/plain" title="RDF+N-Triples">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/DC/wreo-eprint-24685.txt" type="text/plain; charset=utf-8" title="Dublin Core">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/Atom/wreo-eprint-24685.xml" type="application/atom+xml;charset=utf-8" title="Atom">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/Simple/wreo-eprint-24685.txt" type="text/plain; charset=utf-8" title="Simple Metadata">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/Refer/wreo-eprint-24685.refer" type="text/plain" title="Refer">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/METS/wreo-eprint-24685.xml" type="text/xml; charset=utf-8" title="METS">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/HTML/wreo-eprint-24685.html" type="text/html; charset=utf-8" title="HTML Citation">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/Text/wreo-eprint-24685.txt" type="text/plain; charset=utf-8" title="ASCII Citation">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/ContextObject/wreo-eprint-24685.xml" type="text/xml; charset=utf-8" title="OpenURL ContextObject">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/EndNote/wreo-eprint-24685.enw" type="text/plain; charset=utf-8" title="EndNote">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/MODS/wreo-eprint-24685.xml" type="text/xml; charset=utf-8" title="MODS">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/COinS/wreo-eprint-24685.txt" type="text/plain; charset=utf-8" title="OpenURL ContextObject in Span">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/DIDL/wreo-eprint-24685.xml" type="text/xml; charset=utf-8" title="MPEG-21 DIDL">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/RIS/wreo-eprint-24685.ris" type="text/plain" title="Reference Manager">
+<link rel="alternate" href="http://etheses.whiterose.ac.uk/cgi/export/eprint/24685/RDFN3/wreo-eprint-24685.n3" type="text/n3" title="RDF+N3">
+<link rel="Top" href="http://etheses.whiterose.ac.uk/">
+    <link rel="Sword" href="https://etheses.whiterose.ac.uk/sword-app/servicedocument">
+    <link rel="SwordDeposit" href="https://etheses.whiterose.ac.uk/id/contents">
+    <link rel="Search" type="text/html" href="http://etheses.whiterose.ac.uk/cgi/search">
+    <link rel="Search" type="application/opensearchdescription+xml" href="http://etheses.whiterose.ac.uk/cgi/opensearchdescription" title="White Rose eTheses Online">
+    <script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi"><!--padder--></script><script type="text/javascript">
+// <![CDATA[
+google.load("visualization", "1", {packages:["corechart", "geochart"]});
+// ]]></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/loader.js"></script><script type="text/javascript">
+// <![CDATA[
+var eprints_http_root = "http:\/\/etheses.whiterose.ac.uk";
+var eprints_http_cgiroot = "http:\/\/etheses.whiterose.ac.uk\/cgi";
+var eprints_oai_archive_id = "etheses.whiterose.ac.uk";
+var eprints_logged_in = false;
+// ]]></script>
+    <style type="text/css">.ep_logged_in { display: none }</style>
+    <link rel="stylesheet" type="text/css" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/auto-3.css">
+    <script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/auto-3.js"><!--padder--></script><style>body { height: 759px; }</style><style type="text/css">.ep_no_js { display: none}
+.ep_no_js_inline { display: none}
+.ep_no_js_table_cell { display: none}
+.ep_only_js { display: block}
+.ep_only_js_inline { display: inline}
+.ep_only_js_table_cell { display: block}
+</style>
+    <!--[if lte IE 6]>
+        <link rel="stylesheet" type="text/css" href="/style/ie6.css" />
+   <![endif]-->
+    <meta name="Generator" content="EPrints 3.3.16">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="en">
+    
+	
+		<meta name="theme-color" content="#fff">
+			
+		
+		<!-- Boostrap -->
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<!-- bootstrap_import -->
+		
+		<link rel="stylesheet" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/bootstrap.css">
+                <script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/bootstrap.js">// <!-- No script --></script><link id="load-css-0" rel="stylesheet" type="text/css" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/tooltip.css"><link id="load-css-1" rel="stylesheet" type="text/css" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/util.css"><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_default_module.js"></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_graphics_module.js"></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_ui_module.js"></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_corechart_module.js"></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_geo_module.js"></script><script type="text/javascript" charset="UTF-8" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jsapi_compiled_geochart_module.js"></script>
+	
+		<!-- /bootstrap_import -->
+
+		<!-- Addition CSS to make bootstrap fit eprints -->
+		<link rel="stylesheet" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/main.css">
+		<link rel="stylesheet" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/bs_overrides.css">
+		<link rel="stylesheet" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/ep_overrides.css">
+
+		<!-- jQuery-observe (https://github.com/kapetan/jquery-observe). Solution for DOM changes that create buttons -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jquery-observe.js">// <!-- No script --></script>
+		
+		 <!-- Expander -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/jquery_002.js">// <!-- No script --></script>
+	
+                
+		<link rel="stylesheet" type="text/css" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/css.css">
+		<!--  This is where the bootstrap theme for customisation goes -->
+                <!--link rel="stylesheet" href="{$config{rel_path}}/bootstrap_assets/Styles/BS_theme/default-bootstrap-theme.css" /-->
+	
+                
+	  <link rel="stylesheet" href="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/WREO_v1.css">
+        
+		<!--  This is where the bootstrap theme for customisation goes -->
+		<!--link rel="stylesheet" href="{$config{rel_path}}/bootstrap_assets/Styles/BS_theme/default-bootstrap-theme.css" /-->
+		<style type="text/css">
+			
+/* some CSS for branding header could go here, though the main CSS files would make more sense */
+	
+		</style>
+	<style type="text/css">.at-icon{fill:#fff;border:0}.at-icon-wrapper{display:inline-block;overflow:hidden}a .at-icon-wrapper{cursor:pointer}.at-rounded,.at-rounded-element .at-icon-wrapper{border-radius:12%}.at-circular,.at-circular-element .at-icon-wrapper{border-radius:50%}.addthis_32x32_style .at-icon{width:2pc;height:2pc}.addthis_24x24_style .at-icon{width:24px;height:24px}.addthis_20x20_style .at-icon{width:20px;height:20px}.addthis_16x16_style .at-icon{width:1pc;height:1pc}#at16lb{display:none;position:absolute;top:0;left:0;width:100%;height:100%;z-index:1001;background-color:#000;opacity:.001}#at_complete,#at_error,#at_share,#at_success{position:static!important}.at15dn{display:none}#at15s,#at16p,#at16p form input,#at16p label,#at16p textarea,#at_share .at_item{font-family:arial,helvetica,tahoma,verdana,sans-serif!important;font-size:9pt!important;outline-style:none;outline-width:0;line-height:1em}* html #at15s.mmborder{position:absolute!important}#at15s.mmborder{position:fixed!important;width:250px!important}#at15s{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);float:none;line-height:1em;margin:0;overflow:visible;padding:5px;text-align:left;position:absolute}#at15s a,#at15s span{outline:0;direction:ltr;text-transform:none}#at15s .at-label{margin-left:5px}#at15s .at-icon-wrapper{width:1pc;height:1pc;vertical-align:middle}#at15s .at-icon{width:1pc;height:1pc}.at4-icon{display:inline-block;background-repeat:no-repeat;background-position:top left;margin:0;overflow:hidden;cursor:pointer}.addthis_16x16_style .at4-icon,.addthis_default_style .at4-icon,.at4-icon,.at-16x16{width:1pc;height:1pc;line-height:1pc;background-size:1pc!important}.addthis_32x32_style .at4-icon,.at-32x32{width:2pc;height:2pc;line-height:2pc;background-size:2pc!important}.addthis_24x24_style .at4-icon,.at-24x24{width:24px;height:24px;line-height:24px;background-size:24px!important}.addthis_20x20_style .at4-icon,.at-20x20{width:20px;height:20px;line-height:20px;background-size:20px!important}.at4-icon.circular,.circular .at4-icon,.circular.aticon{border-radius:50%}.at4-icon.rounded,.rounded .at4-icon{border-radius:4px}.at4-icon-left{float:left}#at15s .at4-icon{text-indent:20px;padding:0;overflow:visible;white-space:nowrap;background-size:1pc;width:1pc;height:1pc;background-position:top left;display:inline-block;line-height:1pc}.addthis_vertical_style .at4-icon,.at4-follow-container .at4-icon{margin-right:5px}html>body #at15s{width:250px!important}#at15s.atm{background:none!important;padding:0!important;width:10pc!important}#at15s_inner{background:#fff;border:1px solid #fff;margin:0}#at15s_head{position:relative;background:#f2f2f2;padding:4px;cursor:default;border-bottom:1px solid #e5e5e5}.at15s_head_success{background:#cafd99!important;border-bottom:1px solid #a9d582!important}.at15s_head_success a,.at15s_head_success span{color:#000!important;text-decoration:none}#at15s_brand,#at15sptx,#at16_brand{position:absolute}#at15s_brand{top:4px;right:4px}.at15s_brandx{right:20px!important}a#at15sptx{top:4px;right:4px;text-decoration:none;color:#4c4c4c;font-weight:700}#at15sptx:hover{text-decoration:underline}#at16_brand{top:5px;right:30px;cursor:default}#at_hover{padding:4px}#at_hover .at_item,#at_share .at_item{background:#fff!important;float:left!important;color:#4c4c4c!important}#at_share .at_item .at-icon-wrapper{margin-right:5px}#at_hover .at_bold{font-weight:700;color:#000!important}#at_hover .at_item{width:7pc!important;padding:2px 3px!important;margin:1px;text-decoration:none!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover{margin:0!important}#at_hover .at_item.athov,#at_hover .at_item:focus,#at_hover .at_item:hover,#at_share .at_item.athov,#at_share .at_item:hover{background:#f2f2f2!important;border:1px solid #e5e5e5;color:#000!important;text-decoration:none}.ipad #at_hover .at_item:focus{background:#fff!important;border:1px solid #fff}.at15t{display:block!important;height:1pc!important;line-height:1pc!important;padding-left:20px!important;background-position:0 0;text-align:left}.addthis_button,.at15t{cursor:pointer}.addthis_toolbox a.at300b,.addthis_toolbox a.at300m{width:auto}.addthis_toolbox a{margin-bottom:5px;line-height:initial}.addthis_toolbox.addthis_vertical_style{width:200px}.addthis_button_facebook_like .fb_iframe_widget{line-height:100%}.addthis_button_facebook_like iframe.fb_iframe_widget_lift{max-width:none}.addthis_toolbox a.addthis_button_counter,.addthis_toolbox a.addthis_button_facebook_like,.addthis_toolbox a.addthis_button_facebook_send,.addthis_toolbox a.addthis_button_facebook_share,.addthis_toolbox a.addthis_button_foursquare,.addthis_toolbox a.addthis_button_linkedin_counter,.addthis_toolbox a.addthis_button_pinterest_pinit,.addthis_toolbox a.addthis_button_tweet{display:inline-block}.addthis_toolbox span.addthis_follow_label{display:none}.addthis_toolbox.addthis_vertical_style span.addthis_follow_label{display:block;white-space:nowrap}.addthis_toolbox.addthis_vertical_style a{display:block}.addthis_toolbox.addthis_vertical_style.addthis_32x32_style a{line-height:2pc;height:2pc}.addthis_toolbox.addthis_vertical_style .at300bs{margin-right:4px;float:left}.addthis_toolbox.addthis_20x20_style span{line-height:20px}.addthis_toolbox.addthis_32x32_style span{line-height:2pc}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact,.addthis_toolbox.addthis_pill_combo_style a{float:left}.addthis_toolbox.addthis_pill_combo_style a.addthis_button_tweet{margin-top:-2px}.addthis_toolbox.addthis_pill_combo_style .addthis_button_compact .at15t_compact{margin-right:4px}.addthis_default_style .addthis_separator{margin:0 5px;display:inline}div.atclear{clear:both}.addthis_default_style .addthis_separator,.addthis_default_style .at4-icon,.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300bs,.addthis_default_style .at300m{float:left}.at300b img,.at300bo img{border:0}a.at300b .at4-icon,a.at300m .at4-icon{display:block}.addthis_default_style .at300b,.addthis_default_style .at300bo,.addthis_default_style .at300m{padding:0 2px}.at300b,.at300bo,.at300bs,.at300m{cursor:pointer}.addthis_button_facebook_like.at300b:hover,.addthis_button_facebook_like.at300bs:hover,.addthis_button_facebook_send.at300b:hover,.addthis_button_facebook_send.at300bs:hover{opacity:1}.addthis_20x20_style .at15t,.addthis_20x20_style .at300bs{overflow:hidden;display:block;height:20px!important;width:20px!important;line-height:20px!important}.addthis_32x32_style .at15t,.addthis_32x32_style .at300bs{overflow:hidden;display:block;height:2pc!important;width:2pc!important;line-height:2pc!important}.at300bs{overflow:hidden;display:block;background-position:0 0;height:1pc;width:1pc;line-height:1pc!important}.addthis_default_style .at15t_compact,.addthis_default_style .at15t_expanded{margin-right:4px}#at_share .at_item{width:123px!important;padding:4px;margin-right:2px;border:1px solid #fff}#at16p{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);z-index:10000001;position:absolute;top:50%;left:50%;width:300px;padding:10px;margin:0 auto;margin-top:-185px;margin-left:-155px;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#5e5e5e}#at_share{margin:0;padding:0}#at16pt{position:relative;background:#f2f2f2;height:13px;padding:5px 10px}#at16pt a,#at16pt h4{font-weight:700}#at16pt h4{display:inline;margin:0;padding:0;font-size:9pt;color:#4c4c4c;cursor:default}#at16pt a{position:absolute;top:5px;right:10px;color:#4c4c4c;text-decoration:none;padding:2px}#at15sptx:focus,#at16pt a:focus{outline:thin dotted}#at15s #at16pf a{top:1px}#_atssh{width:1px!important;height:1px!important;border:0!important}.atm{width:10pc!important;padding:0;margin:0;line-height:9pt;letter-spacing:normal;font-family:arial,helvetica,tahoma,verdana,sans-serif;font-size:9pt;color:#444;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABtJREFUeNpiZGBgaGAgAjAxEAlGFVJHIUCAAQDcngCUgqGMqwAAAABJRU5ErkJggg==);padding:4px}.atm-f{text-align:right;border-top:1px solid #ddd;padding:5px 8px}.atm-i{background:#fff;border:1px solid #d5d6d6;padding:0;margin:0;box-shadow:1px 1px 5px rgba(0,0,0,.15)}.atm-s{margin:0!important;padding:0!important}.atm-s a:focus{border:transparent;outline:0;transition:none}#at_hover.atm-s a,.atm-s a{display:block;text-decoration:none;padding:4px 10px;color:#235dab!important;font-weight:400;font-style:normal;transition:none}#at_hover.atm-s .at_bold{color:#235dab!important}#at_hover.atm-s a:hover,.atm-s a:hover{background:#2095f0;text-decoration:none;color:#fff!important}#at_hover.atm-s .at_bold{font-weight:700}#at_hover.atm-s a:hover .at_bold{color:#fff!important}.atm-s a .at-label{vertical-align:middle;margin-left:5px;direction:ltr}.at_PinItButton{display:block;width:40px;height:20px;padding:0;margin:0;background-image:url(//s7.addthis.com/static/t00/pinit00.png);background-repeat:no-repeat}.at_PinItButton:hover{background-position:0 -20px}.addthis_toolbox .addthis_button_pinterest_pinit{position:relative}.at-share-tbx-element .fb_iframe_widget span{vertical-align:baseline!important}#at16pf{height:auto;text-align:right;padding:4px 8px}.at-privacy-info{position:absolute;left:7px;bottom:7px;cursor:pointer;text-decoration:none;font-family:helvetica,arial,sans-serif;font-size:10px;line-height:9pt;letter-spacing:.2px;color:#666}.at-privacy-info:hover{color:#000}.body .wsb-social-share .wsb-social-share-button-vert{padding-top:0;padding-bottom:0}.body .wsb-social-share.addthis_counter_style .addthis_button_tweet.wsb-social-share-button{padding-top:40px}.body .wsb-social-share.addthis_counter_style .addthis_button_facebook_like.wsb-social-share-button{padding-top:21px}@media print{#at4-follow,#at4-share,#at4-thankyou,#at4-whatsnext,#at4m-mobile,#at15s,.at4,.at4-recommended{display:none!important}}@media screen and (max-width:400px){.at4win{width:100%}}@media screen and (max-height:700px) and (max-width:400px){.at4-thankyou-inner .at4-recommended-container{height:122px;overflow:hidden}.at4-thankyou-inner .at4-recommended .at4-recommended-item:first-child{border-bottom:1px solid #c5c5c5}}</style><style type="text/css">.at-branding-logo{font-family:helvetica,arial,sans-serif;text-decoration:none;font-size:10px;display:inline-block;margin:2px 0;letter-spacing:.2px}.at-branding-logo .at-branding-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////+GlNUkcc1QAAAB1JREFUeNpiYIQDBjQmAwMmkwEM0JnY1WIxFyDAABGeAFEudiZsAAAAAElFTkSuQmCC")}.at-branding-logo .at-branding-icon,.at-branding-logo .at-privacy-icon{display:inline-block;height:10px;width:10px;margin-left:4px;margin-right:3px;margin-bottom:-1px;background-repeat:no-repeat}.at-branding-logo .at-privacy-icon{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAKCAMAAABR24SMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAABhQTFRF8fr9ot/xXcfn2/P5AKva////////AKTWodjhjAAAAAd0Uk5T////////ABpLA0YAAAA6SURBVHjaJMzBDQAwCAJAQaj7b9xifV0kUKJ9ciWxlzWEWI5gMF65KUTv0VKkjVeTerqE/x7+9BVgAEXbAWI8QDcfAAAAAElFTkSuQmCC")}.at-branding-logo span{text-decoration:none}.at-branding-logo .at-branding-addthis,.at-branding-logo .at-branding-powered-by{color:#666}.at-branding-logo .at-branding-addthis:hover{color:#333}.at-cv-with-image .at-branding-addthis,.at-cv-with-image .at-branding-addthis:hover{color:#fff}a.at-branding-logo:visited{color:initial}.at-branding-info{display:inline-block;padding:0 5px;color:#666;border:1px solid #666;border-radius:50%;font-size:10px;line-height:9pt;opacity:.7;transition:all .3s ease;text-decoration:none}.at-branding-info span{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.at-branding-info:before{content:'i';font-family:Times New Roman}.at-branding-info:hover{color:#0780df;border-color:#0780df}</style><style id="justifyTopNavLinks" type="text/css">#nvc ul li a { padding-left:45px; padding-right:45px; } 			#nvc.in ul li a, #nvc.collapsing ul li a { padding-left:15px; padding-right:15px; }</style><script type="text/javascript" charset="utf-8" async="" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/counter.js"></script><style type="text/css">.addthis_counter{font-weight:700;display:inline-block;border:0;outline:0;cursor:pointer;color:#fff}.addthis_counter a{display:block;font-family:arial,helvetica,sans-serif!important;text-decoration:none!important;border:0}.addthis_counter{text-decoration:none!important;text-align:left}.addthis_counter .addthis_button_expanded{background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAACaCAMAAADcrusAAAAA21BMVEX////+bUznWjrnWjrBwcGJiYnm5ubFxcWMjIyRkZH39/f19fX////nWjr+bUzys6n+uq7/7+z87evqd2H+hm3/5+P+sKPxqJz65OH/9/b+el3paU//zcT2yMDshXH99vX+kXz+nIn/w7n0vrX30cz9bEv/3tn529f/1s/ukYH3aUn+ppbvnY/bUjTmWTn/3dX+9fP3aEj/9vT52NH/5d/aUTP9a0r74tzlWDjfWz386+f/7en4b1H/7uv4b1D/3db/9/X/7uraUjT+9vT87Oj87OnpZEb52dH+dlezszuQAAAABHRSTlMAExMAzBw6IQAAAnlJREFUeF6009eKKzEMBuBJriW5T2/pPdvbqb28/xMdGbOQiyxZZ9n/QnjAH8KWJxl8uqeI3H8ZJFcUmatkFktmCUXnXHIBIRevJ/AcBuUSQI0onZ8k1/QxkNqVJIvyNPl8S1/ZMFkuuYxtqhQoS2MA1RNIGKUArjwk/4Lk0jtXp0QpjEjJHiw5SbzZQlo6eUi+fafba0985LKwqSOqJdNaMdmQ5O+NOn6WYsNlPk7nnvRF6iF3lOBz/MZqZ6kvZCBS+bUn1h/MvTCXmumYArEKijlYJr6N6t8y/fcn5zz+dfwvNlhH9ZmtB8nw6REj8vg0TO4wMnfJPpbsE4zOueQGQm5eT+A5DKopgF5htjhJLvFDIE1eoeiq0+T3A/5lw2Q65TIxmdagDU4AdIsgYJUB5NUh+RMklzbPmwwxgxVq0YLBXCBvNpBVuTgkP3/hw6UnPmLamSxHbATTRjPZouDvrT5+lm7LZTHJFp60XeYhdxTgc/zGmtxg24lAhPZrT4w/WP7CXBqmEwzEaOgWYJj4Nrp9y/Tfn5zz+Hex5Ecy3EX12e+G/9mrQxUAYBgGooEFAm3//3snZmviJnL+6cMRrXSgHqsWOGb8iISEhISEqDxRAsSld5De/nLbr4MViEEYDMI5mFQ3ff/nXejx33YHcyqtc/8QQSXaRYfJZpAaFWx2FdwfMXyqYdYjp4punpP5fcgiiyyyyCKVl9+6nxQHCP+t20WHCTdIjQo2KjgDAT/Y7UQk/li1tkPtyaQlEhBARABBUV+lvhc1rz4w+FX4bKWLrA0cp7Ue+KhqnpA/mXggAQFEBBAU9VXqe1HzzgNTv2Iyx9Dc8gWOjkKMG1wfQQAAAABJRU5ErkJggg==");background-repeat:no-repeat;display:inline-block}.addthis_counter .atc_s{background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAFVBMVEUAAAD///////////////////////9Iz20EAAAABnRSTlMAwPm7kB4+mBDvAAAAP0lEQVQI12MIVksDgyRTBrM0KEhmAApChRnS4ACdKcCIl5ko6MAiKAZmJjAAARsKE6GAsGE43IBwJLLTER4CAHvvQkc3Hji8AAAAAElFTkSuQmCC");background-size:10px;background-repeat:no-repeat;background-color:#fe6d4c;background-position:5px 5px;display:inline-block;border-radius:2px;min-width:25px;text-decoration:none}.addthis_counter .atc_s:hover{background-color:#e75a3a}.addthis_counter.addthis_bubble_style{background-image:url("data:image/gif;base64,R0lGODlhUgBkAKIEAOrq6sLCwoWFhf///////wAAAAAAAAAAACH5BAEAAAQALAAAAABSAGQAAAP/SLoa/jDKSetkOGsdwPhgKI5kaYpAsK1sd75wPKZsjQVyrpuq7eO7YLDnqwGFyBixuDomn6UlkwOtkqTTm3ULwmYXTi7U+3WJreSp+VxNF9fs8ZcBjz/dRo8dPSfU90l4TXqAcn1/hTuCLYSJQ31gjY45i3mTipB0kpcnlTZhnDyZdKFKo2ClMJ5GqS+rLa2dpw2xorOgtR+vg7kou7y9AzSzYBbGx8gRxAwCzc7P0NHS09TSywoCm60AAsvZwSDcxALgId2z5OUf56fp6uyj7uXwmfLg9JD2wfh9+r38X76pGwBwisCBBYscRFhP2718Dh/OWThwXb+IEidi/New+SKIhD4ozmu3sRVIhSVLnVRYcWXIluNgopPZjmY8m/VwQlQnblxKRz29VRtKtCg0YsmSOsBgtGmzNz9zDCMgEkpQWGyI+KuyElebBVuhdI2jNc5JRF+pRtUBEu3XqlYSum0DNy6jPQHqcrVEVq2ds2spYQssY2xWsGZ/9MWW+NNiqo35cpmqV8jVFkqTMXVqlEnmz1I4i4Y3twplwjqCehVTthC71VxaA3qdSPYe2oVs/0WVG7HrBqgx+f1deouKylsEFDeOPPlyNM3tPpcTXSzw2oMT4QakOzJs475n8+Ye/vZ4vOV30+rN+Pf1PacBXQWdefPopgQSAAA7");background-repeat:no-repeat}.addthis_counter a.atc_s{font-size:11px;font-weight:100;color:#fff;padding:0 5px 0 20px;line-height:20px;overflow:hidden;cursor:pointer;transition:none}.addthis_counter .atc_s-span,.addthis_counter a.atc_s{display:block;height:20px}.addthis_counter .addthis_button_expanded.at300m .at4-icon{display:none!important}.addthis_counter a.addthis_button_expanded:hover,.addthis_counter.addthis_pill_style a.addthis_button_expanded:hover{text-decoration:none;color:#000}.addthis_counter .addthis_button_expanded{display:block;background-repeat:no-repeat;background-position:0 -40px;width:50px;height:33px;line-height:33px;padding-bottom:4px;margin-bottom:3px;text-align:center;text-decoration:none;font-size:1pc;font-weight:700;color:#333}.addthis_counter{vertical-align:top}.addthis_counter.addthis_native_counter .addthis_button_expanded{font-weight:400}* html .addthis_counter.compatmode0 .addthis_button_expanded{padding-bottom:0!important}* html .addthis_counter .addthis_button_expanded{height:37px}.addthis_counter .addthis_button_expanded:hover{background-position:0 -77px;cursor:pointer;color:#000}.addthis_counter .addthis_button_expanded .at300bs{display:none!important}.addthis_counter.addthis_pill_style{display:block;height:25px;overflow:hidden}.addthis_counter.addthis_pill_style a.atc_s{float:left}.addthis_counter.addthis_pill_style a.addthis_button_expanded{display:none;background-repeat:no-repeat;background-position:0 -114px;width:34px!important;height:20px;line-height:20px;margin:0 0 0 3px;padding:0 0 0 4px;float:left;text-align:center;text-decoration:none;font-family:arial,helvetica,sans-serif;font-weight:700;font-size:11px;color:#333;-ms-box-sizing:content-box;-o-box-sizing:content-box;box-sizing:content-box}.addthis_counter.addthis_pill_style.addthis_nonzero a.addthis_button_expanded{display:block!important;transition:none}.addthis_counter.addthis_pill_style a.addthis_button_expanded:hover{background-position:0 -134px!important}.addthis_counter.addthis_bubble_style{margin:0 0 0 -2px;text-align:center;font-weight:700;font-family:arial,helvetica,sans-serif;color:#000;background-repeat:no-repeat;background-position:0 -4pc;padding:0 0 0 4px;height:1pc;width:2pc!important;-ms-box-sizing:content-box;-o-box-sizing:content-box;box-sizing:content-box}.addthis_native_counter_parent .addthis_counter.addthis_bubble_style{background-position:0 -4pc!important}.addthis_counter.addthis_bubble_style.addthis_native_counter{margin:0 2px}.addthis_counter.addthis_bubble_style a.addthis_button_expanded{font-size:11px;height:1pc;line-height:1pc;width:34px;background:none}.addthis_counter.addthis_bubble_style:hover{background-position:-36px -4pc!important}.addthis_20x20_style .addthis_counter.addthis_bubble_style{background-repeat:no-repeat;background-position:0 -5pc!important;height:20px;width:35px!important;line-height:20px;padding:0 0 0 6px}.addthis_20x20_style .addthis_counter.addthis_bubble_style:hover{background-position:-41px -5pc!important}.addthis_20x20_style .addthis_counter.addthis_bubble_style a.addthis_button_expanded{background:none;font-size:9pt;line-height:20px;height:20px;margin:0;width:35px!important;padding:0!important}.addthis_20x20_style .addthis_counter.addthis_bubble_style.addthis_native_counter a.addthis_button_expanded{font-size:11px}.addthis_32x32_style .addthis_counter.addthis_bubble_style,.addthis_32x32_white_style .addthis_counter.addthis_bubble_style{background-repeat:no-repeat;background-position:0 0!important;height:2pc;width:56px!important;line-height:2pc;padding:0 0 0 6px}.addthis_32x32_style .addthis_counter.addthis_bubble_style a.addthis_button_expanded,.addthis_32x32_white_style .addthis_counter.addthis_bubble_style a.addthis_button_expanded{background:none;font-size:1pc;line-height:2pc;height:2pc;margin:0;width:56px!important;padding:0!important}.addthis_32x32_style .addthis_counter.addthis_bubble_style:hover,.addthis_32x32_white_style .addthis_counter.addthis_bubble_style:hover{background-position:0 -2pc!important}.addthis_counter.addthis_bubble_style .atc_s{display:none!important}* html .addthis_counter.addthis_bubble_style{width:36px!important;display:inline}* html .addthis_counter.bubblecompatmode0{width:2pc!important;display:block}* html .addthis_counter.addthis_bubble_style a.addthis_button_expanded{width:24px!important;height:14px!important;line-height:14px!important;padding:0;margin-top:1px!important;display:inline}* html .addthis_counter.bubblecompatmode0 a.addthis_button_expanded{width:36px}* html .addthis_32x32_style .addthis_counter.addthis_bubble_style{width:60px!important}* html .addthis_32x32_style .addthis_counter.addthis_bubble_style a.addthis_button_expanded{width:46px;height:26px!important;line-height:26px!important;margin-top:2px!important}* html .addthis_32x32_style .addthis_counter.bubblecompatmode0 a.addthis_button_expanded{height:2pc!important;line-height:2pc!important}</style></head>
+	<body style="padding-top: 50px;">
+		<script>
+                        //jQuery('body').append('<div id="blocker"></div>');
+                </script>
+		
+
+                <header class="container-fluid">
+                  <nav class="navbar-fixed-top" role="navigation">
+                    <div class="container">
+                     <div class="row">
+                      <div class="col-md-6 navbar-header">
+                        <button type="button" class="navbar-toggle collapsed btn btn-success" data-toggle="collapse" data-target="#nvc" aria-expanded="false">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <!-- <a class="navbar-brand" href="/"><img src="/images/WREO_logo_blue.png" style="display: inline;" height="30px" alt="White Rose logo"/> <span class="wreo-wr">White Rose</span> <span class="wreo-eo">eTheses Online</span></a> -->
+                        <a class="navbar-brand" href="http://etheses.whiterose.ac.uk/"><img src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/WREO_logo_blue.png" style="display: inline;" alt="White Rose logo" height="30px">White Rose eTheses Online</a>
+                      </div>
+
+                      <div class="col-md-6 navbar-collapse collapse" id="nvc">
+                        <ul id="wreo-nav" class="nav navbar-nav navbar-right">
+                          <li><a href="http://etheses.whiterose.ac.uk/cgi/users/home">Login</a></li>
+                          <li><a href="https://etheses.whiterose.ac.uk/view/">Browse</a></li>
+                          <li><a href="https://etheses.whiterose.ac.uk/cgi/search">Search</a></li>
+                          <li><a href="https://etheses.whiterose.ac.uk/faq.html">FAQs</a></li>
+                        </ul>
+                      </div>
+                     </div><!-- /row -->
+                    </div>
+                  </nav>
+                </header>
+
+<div class="container-fluid">
+  <div class="row">
+		<div id="main_page" class="container">
+                  <div class="row">
+			<main id="page" class="col-md-12 col-sm-12 col-xs-12">
+				<div class="">
+					<h1 class="">
+						
+
+Automatic Detection of Volcanic Unrest Using Interferometric
+Synthetic Aperture Radar
+
+
+					</h1>
+					<div class="ep_summary_content"><div class="ep_summary_content_left"></div><div class="ep_summary_content_right"></div><div class="ep_summary_content_top"></div><div class="ep_summary_content_main">
+<div class="row">
+  <div id="summarypage_left" class="col-xs-12 col-md-8">
+
+    <div id="summary_citation" class="col-xs-12 summary-widget">
+        <div id="citation" class="tab-pane active">
+          <p id="apa_inner" class="well well-small">
+		
+
+
+    <!-- <print expr="creators_name"/> -->
+    <span class="person"><span class="person_name">Gaddes, Matthew Edward</span></span>
+  
+
+(2019)
+
+<em>Automatic Detection of Volcanic Unrest Using Interferometric
+Synthetic Aperture Radar.</em>
+
+
+    PhD thesis, University of Leeds.
+  
+
+
+
+
+	   </p>
+        </div>
+    </div>
+
+ 
+    
+      <div id="summary_abstract" class="col-xs-12 summary-widget">
+        <h2>Abstract</h2>
+        <div class="expandable">
+          <p>A diverse set of hazards are posed by the world's 1500 
+subaerial volcanoes, yet the majority of them remain unmonitored.  
+Measurements of deformation provide a way to monitor volcanoes, and 
+synthetic aperture RaDAR (SAR) provides a powerful tool to measure 
+deformation at the majority of the world's subaerial volcanoes.  This is
+ due to recent changes in how regularly SAR data are acquired, how they 
+are distributed to the scientific community, and how quickly they can be
+ processed to create time series of interferograms.  However, for 
+interferometric SAR (InSAR) to be used to monitor the world's volcanoes,
+ an algorithm is required to automatically detect signs of 
+deformation-generating volcanic unrest in a time series of 
+interferograms, as the volume of new interferograms produced each week 
+precludes this task being achieved by human interpreters.  In this 
+thesis, I introduce two complementary methods that can be used to detect
+ signs of volcanic unrest.  
+
+The first method centres on the use of blind signal separation (BSS) 
+methods to isolate signals of geophysical interest from nuisance 
+signals, such as those due to changes in the refractive index of the 
+atmosphere between two SAR acquisitions.  This is achieved through first
+ comparing which of non-negative matrix factorisation (NMF), principal 
+component analysis (PCA), and independent component analysis (ICA) are 
+best suited for solving BSS problems involving time series of InSAR 
+data, and how InSAR data should best be arranged for its use with these 
+methods.  I find that NMF can be used with InSAR data, providing the 
+time series is formatted in a novel way that reduces the likelihood of 
+any pixels having negative values.  However, when NMF, PCA, and ICA are 
+applied to a set of synthetic data, I find that the most accurate 
+recovery of signals of interest is achieved when ICA is set to recover 
+spatially independent sources (termed sICA).  I find that the best 
+results are produced by sICA when interferograms are ordered as a simple
+ ``daisy chain'' of short temporal baselines, and when sICA is set to 
+recover around 1-3 more sources than were thought to have contributed to
+ the time series.  However, I also show that in cases such as 
+deformation centred under a stratovolcano, the overlapping nature of a 
+topographically correlated atmospheric phase screen (APS) signal and a 
+deformation signal produces a pair of signals that are no longer 
+spatially statistically independent, and so cannot be recovered 
+accurately by sICA. 
+
+To validate these results, I apply sICA to a time series of Sentinel-1 
+interferograms that span the 2015 eruption of Wolf volcano (Galapagos 
+archipelago, Ecuador) and automatically isolate three signals of 
+geophysical interest, which I validate by comparing with the results of 
+other studies.  I also apply the sICA algorithm to a time series of 
+interferograms that image Mt Etna, and through isolating signals that 
+are likely to be due to instability of the east flank of the volcano, 
+show that the method can be applied to stratovolcanoes to recover useful
+ signals.  Utilising the ability of sICA to isolate signals of interest,
+ I introduce a prototype detection algorithm that tracks changes in the 
+behaviour of a subaerial volcano, and show that it could have been used 
+to detect the onset of the 2015 eruption of Wolf.  
+
+However, for use in an detection algorithm that is to be applied 
+globally, the signals recovered by sICA cannot be manually validated 
+through comparison with other studies.  Therefore, I seek to incorporate
+ a module into my detection algorithm that is able to quantify the 
+significance of the sources recovered by sICA.  I achieve this through 
+extensively modernising the ICASO algorithm to create a new algorithm, 
+ICASAR, that is optimised for use with InSAR time series.  This 
+algorithm allows me to assess the significance of signals recovered by 
+sICA at a given volcano, and to then prioritise the tracking of any 
+changes they exhibit when they are used in my detection algorithm.  
+
+To further develop the detection algorithm, I create two synthetic time 
+series that characterise the different types of unrest that could occur 
+at a volcanic centre.  The first features the introduction of a new 
+signal, and my algorithm is able to detect when this signal enters the 
+time series by tracking how well the baseline sources are able to fit 
+new interferograms.  The second features the change in rate of a signal 
+that was present during the baseline stage, and my algorithm is able to 
+detect when this change in rate occurs by tracking how sources recovered
+ from the baseline data are used through time.  To further test the 
+algorithm, I extended the Sentinel-1 time series I used to study the 
+2015 eruption of Wolf to include the 2018 eruption of Sierra Negra, and I
+ find that my algorithm is able to detect the increase in inflation that
+ precedes the eruption, and the eruption itself.  
+
+I also perform a small study into the pre-eruptive inflation seen at 
+Sierra Negra using the deformation signal and its time history that are 
+outputted by ICASAR.  A Bayesian inversion is performed using the GBIS 
+software package, in which the inflation signal is modelled as a 
+horizontal rectangular dislocation with variable opening and uniform 
+overpressure.  Coupled with the time history of the inflation signal 
+provided by ICASAR, this allows me to determine the temporal evolution 
+of the pre-eruptive overpressure since the beginning of the Sentinel-1 
+time series in 2014.  To extend this back to the end of the previous 
+eruption in 2005, I use GPS data that spans the entire interruptive 
+period.  I find that the total interruptive pressure change is ~13.5 
+MPa, which is significantly larger than the values required for tensile 
+failure of an elastic medium overlying an inflating body.  I conclude 
+that it is likely that one or more processes occurred to reduce the 
+overpressure within the sill, and that the change in rate of inflation 
+prior to the final failure of the sill is unlikely to be coincidental.  
+
+The second method I develop to detect volcanic deformation in a time 
+series of interferograms uses a convolutional neural network (CNN) to 
+classify and locate deformation signals as each new interferogram is 
+added to the time series.  I achieve this through building a model that 
+uses the five convolutional blocks of a previously state-of-the-art 
+classification and localisation model, VGG16, but incorporates a 
+classification output/head, and a localisation output/head.  In order to
+ train the model, I perform transfer learning and utilise the weights 
+made freely available for the convolutional blocks of a version of VGG16
+ that was trained to classify natural images.  I then synthesise a set 
+of training data, but find that better performance is achieved on a 
+testing set of Sentinel-1 interferograms when the model is trained with a
+ mixture of both synthetic and real data.  I conclude that CNNs can be 
+built that are able to differentiate between different styles of 
+volcanic deformation, and that they can perform localisation by globally
+ reasoning with a 224 x 224 pixel interferogram without the need for a 
+sliding window approach.  
+
+The results I present in this thesis show that many machine learning 
+methods can be applied to both time series of interferograms, and 
+individual interferograms.  sICA provides a powerful tool to separate 
+some geophysical signals from atmospheric ones, and the ICASAR algorithm
+ that I develop allows a user to evaluate the significance of the 
+results provided by sICA.  I incorporate these methods into an 
+deformation detection algorithm, and show that this could be used to 
+detect several types of volcanic unrest using data produced by the 
+latest generation of SAR satellites.    Additionally, the CNN I develop 
+is able to differentiate between deformation signals in a single 
+interferogram, and provides a complementary way to monitor volcanoes 
+using InSAR.  </p>
+        </div>
+      </div>
+    
+
+    <div id="summary_metadata" class="col-xs-12 summary-widget">
+      <h2>Metadata</h2>
+      <table class="table" style="margin-bottom: 1em; margin-top: 1em;" cellpadding="3">
+        
+        
+          
+        
+          
+        
+          
+            <tbody><tr>
+              <th width="25%" align="right">Related URLs:</th>
+              <td valign="top"><ul class="wreo-related-urls"><li><a href="https://github.com/mattcyp88/ICASAR">Software package (Project)</a></li><li><a href="https://agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2018JB016210">Related publication</a></li></ul></td>
+            </tr>
+          
+        
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Keywords:</th>
+              <td valign="top">InSAR,
+interferometric synthetic aperture radar,
+BSS,
+blind signal separation,
+ICA,
+independent component analysis,
+deep learning,
+keras,
+CNN,
+convolutional neural networks</td>
+            </tr>
+          
+        
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Awarding institution:</th>
+              <td valign="top">University of Leeds</td>
+            </tr>
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Academic Units:</th>
+              <td valign="top"><a href="http://etheses.whiterose.ac.uk/view/iau/Leeds=2ERC-EARS=5F4/">The
+ University of Leeds &gt; Faculty of Environment (Leeds) &gt; School of 
+Earth and Environment (Leeds) &gt; Institute of Geophysics and Tectonics
+ (Leeds)</a></td>
+            </tr>
+          
+        
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Identification Number/EthosID (e.g. uk.bl.ethos.123456):</th>
+              <td valign="top">uk.bl.ethos.789436</td>
+            </tr>
+          
+        
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Depositing User:</th>
+              <td valign="top">
+
+<a href="http://etheses.whiterose.ac.uk/cgi/users/home?screen=User::View&amp;userid=21303"><span class="ep_name_citation"><span class="person_name">Mr Matthew Gaddes</span></span></a>
+
+</td>
+            </tr>
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Date Deposited:</th>
+              <td valign="top">29 Oct 2019 16:58</td>
+            </tr>
+          
+        
+          
+            <tr>
+              <th width="25%" align="right">Last Modified:</th>
+              <td valign="top">25 Mar 2021 16:45</td>
+            </tr>
+          
+        
+      </tbody></table>
+    </div>
+
+  </div>
+
+  <div id="summarypage_right" class="col-xs-12 col-md-4">
+
+    
+    
+
+      
+
+      
+        <div id="summary_downloads" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 summary-widget">
+          <h2>Download</h2>
+<!--            <epc:if test="oa_location">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">External copy</h3>
+                </div>
+                <div class="panel-body">
+                  <epc:print expr="oa_location" />
+                </div>
+              </div>
+            </epc:if>
+-->
+          <div id="downloads-accordion" class="panel-group">
+            
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+<!--                    <a data-toggle="collapse" data-parent="#downloads-accordion" href="#collapse_{$doc{docid}}"> -->
+                    
+<!-- JLRS -->
+                     
+                          Final eThesis - complete (pdf)
+                        
+<!--                      <span class="glyphicon glyphicon-plus pull-right"/>
+                    </a> -->
+                  </h3>
+                  
+                </div>
+<!--                <div id="collapse_{$doc{docid}}" class="panel-collapse collapse"> -->
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-8">
+                        
+                          
+                              <p class="filename"><strong>Filename:</strong>
+                                <a target="_blank" href="https://etheses.whiterose.ac.uk/24685/1/meg_thesis.pdf" onclick="_gaq.push(['_trackEvent', 'Documents', 'Downloaded', 'Thesis - Text', 'Automatic Detection of Volcanic Unrest Using Interferometric Synthetic Aperture Radar )' ]);">meg_thesis.pdf</a>
+                              </p>
+                            
+                        
+			 
+                        
+                        
+                          <p><strong>Licence: </strong>Creative Commons Attribution Non-commercial Share Alike (UK)</p>
+                        
+                        
+                        <!-- <epc:if test="$doc{date_embargo}">
+                          <p><strong>Embargo Date: </strong><epc:print expr="$doc{date_embargo}" /></p>
+                        </epc:if> -->
+                      </div>
+                      <div class="col-md-4">
+                        
+                            <a target="_blank" href="https://etheses.whiterose.ac.uk/24685/1/meg_thesis.pdf" onclick="_gaq.push(['_trackEvent', 'Documents', 'Downloaded', 'Thesis - Text', 'Automatic Detection of Volcanic Unrest Using Interferometric Synthetic Aperture Radar )' ]);" class="pull-right text-center">
+                              CLICK TO DOWNLOAD
+                            </a>
+                            <span class="pull-right text-center"><a target="_blank" href="https://etheses.whiterose.ac.uk/24685/1/meg_thesis.pdf" class="ep_document_link"><img class="ep_doc_icon" alt="[img]" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/meg_thesis.png" border="0"></a></span>
+                          
+                      </div>
+                    </div>
+                <!--  </div> -->
+                </div>
+              </div>
+            
+          </div>
+        </div>
+      
+
+    
+
+    <script type="text/javascript">
+//      jQuery(document).ready(function() {
+//        jQuery("#downloads-accordion").find('div.panel-collapse').first().addClass( "in" );
+//      });
+    </script>
+
+
+  <div id="summary_share" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 summary-widget ">
+    <h2>Share / Export</h2>
+    <div class="panel panel-body">
+      <!-- AddThis Button BEGIN -->
+      <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+        <a class="addthis_button_facebook addthis_button_preferred_1 at300b" title="Facebook" href="#"><span class="at-icon-wrapper" style="background-color: rgb(59, 89, 152); line-height: 32px; height: 32px; width: 32px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-facebook-2" class="at-icon at-icon-facebook" style="width: 32px; height: 32px;" title="Facebook" alt="Facebook"><title id="at-svg-facebook-2">Facebook</title><g><path d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_twitter addthis_button_preferred_2 at300b" title="Twitter" href="#"><span class="at-icon-wrapper" style="background-color: rgb(29, 161, 242); line-height: 32px; height: 32px; width: 32px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-twitter-3" class="at-icon at-icon-twitter" style="width: 32px; height: 32px;" title="Twitter" alt="Twitter"><title id="at-svg-twitter-3">Twitter</title><g><path d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_button_print addthis_button_preferred_3 at300b" title="Print" href="#"><span class="at-icon-wrapper" style="background-color: rgb(115, 138, 141); line-height: 32px; height: 32px; width: 32px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-print-4" class="at-icon at-icon-print" style="width: 32px; height: 32px;" title="Print" alt="Print"><title id="at-svg-print-4">Print</title><g><path d="M24.67 10.62h-2.86V7.49H10.82v3.12H7.95c-.5 0-.9.4-.9.9v7.66h3.77v1.31L15 24.66h6.81v-5.44h3.77v-7.7c-.01-.5-.41-.9-.91-.9zM11.88 8.56h8.86v2.06h-8.86V8.56zm10.98 9.18h-1.05v-2.1h-1.06v7.96H16.4c-1.58 0-.82-3.74-.82-3.74s-3.65.89-3.69-.78v-3.43h-1.06v2.06H9.77v-3.58h13.09v3.61zm.75-4.91c-.4 0-.72-.32-.72-.72s.32-.72.72-.72c.4 0 .72.32.72.72s-.32.72-.72.72zm-4.12 2.96h-6.1v1.06h6.1v-1.06zm-6.11 3.15h6.1v-1.06h-6.1v1.06z"></path></g></svg></span></a>
+        <a class="addthis_button_email addthis_button_preferred_4 at300b" target="_blank" title="Email" href="#"><span class="at-icon-wrapper" style="background-color: rgb(132, 132, 132); line-height: 32px; height: 32px; width: 32px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-email-5" class="at-icon at-icon-email" style="width: 32px; height: 32px;" title="Email" alt="Email"><title id="at-svg-email-5">Email</title><g><g fill-rule="evenodd"></g><path d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a>
+        <a class="addthis_button_compact at300m" href="#"><span class="at-icon-wrapper" style="background-color: rgb(255, 101, 80); line-height: 32px; height: 32px; width: 32px;"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" version="1.1" role="img" aria-labelledby="at-svg-addthis-1" class="at-icon at-icon-addthis" style="width: 32px; height: 32px;" title="More" alt="More"><title id="at-svg-addthis-1">AddThis</title><g><path d="M18 14V8h-4v6H8v4h6v6h4v-6h6v-4h-6z" fill-rule="evenodd"></path></g></svg></span></a>
+        <a class="addthis_counter addthis_bubble_style" style="display: inline-block;" href="#"><a class="addthis_button_expanded" target="_blank" title="More" href="#">0</a><a class="atc_s addthis_button_compact">Share<span></span></a></a>
+      <div class="atclear"></div></div>
+      <script type="text/javascript" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/addthis_widget.js">// <!-- No script --></script>
+      <!-- AddThis Button END -->
+	<!-- enable if edit to eprints_render has been made: http://wiki.eprints.org/w/Export_bar_on_abstract_page -->
+      <div id="export-bar">
+  	
+          <div id="ep_export_bar"><form method="get" accept-charset="utf-8" action="/cgi/export_redirect" class="form-inline" role="form"><input name="dataobj" id="dataobj" value="24685" type="hidden"><select name="format" class="form-control" style="width:200px;"><option value="RDFXML" selected="selected">RDF+XML</option><option value="BibTeX">BibTeX</option><option value="RIOXX2">RIOXX2 XML</option><option value="RDFNT">RDF+N-Triples</option><option value="DC">Dublin Core</option><option value="Atom">Atom</option><option value="Simple">Simple Metadata</option><option value="Refer">Refer</option><option value="METS">METS</option><option value="HTML">HTML Citation</option><option value="Text">ASCII Citation</option><option value="ContextObject">OpenURL ContextObject</option><option value="EndNote">EndNote</option><option value="MODS">MODS</option><option value="COinS">OpenURL ContextObject in Span</option><option value="DIDL">MPEG-21 DIDL</option><option value="RIS">Reference Manager</option><option value="RDFN3">RDF+N3</option></select><input type="submit" value="Export" class="btn btn-success"></form></div>
+	
+      </div>
+    </div>
+  </div>
+
+<!--    <div id="summary_export" class="col-xs-12 summary-widget">
+      <h2>Export</h2>
+      <epc:print expr="$export_bar" />
+    </div>
+-->    
+
+<!--    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"/> -->
+
+<!--  Excluded as depends on ALtmetics, DOI and IRstats2  -->
+<!--    <div id="summary_statistics" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 summary-widget">
+      <h2>Statistics</h2>
+      <epc:if test="id_number">
+        <epc:choose>
+          <epc:when test="id_number">
+            <div id="summary_altmetric" data-doi="{id_number.as_string()}"/>
+          </epc:when>
+        </epc:choose>
+        <script type="text/javascript">
+          new EP_Altmetric_Badge( 'summary_altmetric' );
+        </script>
+      </epc:if>
+      <div id="irstats2_summary_page_downloads" class="irstats2_graph"/>
+      <script type="text/javascript">
+document.observe("dom:loaded",function(){
+
+		var irstats2_summary_page_eprintid = '<epc:print expr='eprintid'/>';
+
+		new EPJS_Stats_GoogleGraph ( { 'context': {
+			'range':'6m',
+			'set_name': 'eprint',
+			'set_value': irstats2_summary_page_eprintid,
+			'datatype':'downloads' },
+			'options': {
+			'container_id': 'irstats2_summary_page_downloads', 'date_resolution':'month','graph_type':'column'
+			} } );
+		});
+
+      </script>
+      <p><a href="/cgi/stats/report/eprint/{eprintid}">View details</a></p>
+    </div>
+-->
+
+
+</div>
+</div>
+<br>
+<div class="row">
+  
+
+    <div id="wreo_contact_item">
+      <p>
+        
+            You do not need to contact us to get a copy of this thesis. Please use the 'Download' link(s) above to get a copy.<br>
+          
+        You can <a href="https://etheses.whiterose.ac.uk/cgi/contact?eprintid=24685">contact us about this thesis</a>. If you need to make a general enquiry, please see the <a href="http://etheses.whiterose.ac.uk/contact.html">Contact us</a> page.
+      </p>
+    </div>
+
+
+
+      <div id="summary_buttons" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 summary-widget">
+          <div class="btn-group pull-right">
+		<!-- <a class="btn btn-primary btn-sm" href="mailto:{$config{adminemail}}?subject=I want to report this record: {phrase('archive_name')} #{eprintid}">Report this Record</a>-->
+		<a class="btn btn-primary btn-sm" href="https://etheses.whiterose.ac.uk/cgi/users/home?screen=EPrint%3A%3AView&amp;eprintid=24685">Admin</a>
+	  </div>
+        <!-- exluded as its not very styleable  
+	<epc:foreach expr="action_list('eprint_summary_page_actions',$item)" iterator="action">
+            <epc:print expr="$action.action_button()" />
+          </epc:foreach>
+	-->
+      </div>
+    
+</div>
+
+
+
+</div><div class="ep_summary_content_bottom panel panel-default"><div class="" id="ep_summary_box_1"><div class="panel-heading"><div class="ep_no_js">CORE (COnnecting REpositories)</div><div class="ep_only_js" id="ep_summary_box_1_colbar"><a class="ep_box_collapse_link" onclick="EPJS_blur(event); EPJS_toggleSlideScroll('ep_summary_box_1_content',true,'ep_summary_box_1');EPJS_toggle('ep_summary_box_1_colbar',true);EPJS_toggle('ep_summary_box_1_bar',false);return false" href="#"><img alt="-" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/minus.png" border="0"> CORE (COnnecting REpositories)</a></div><div class="ep_only_js" id="ep_summary_box_1_bar" style="display: none"><a class="ep_box_collapse_link" onclick="EPJS_blur(event); EPJS_toggleSlideScroll('ep_summary_box_1_content',false,'ep_summary_box_1');EPJS_toggle('ep_summary_box_1_colbar',true);EPJS_toggle('ep_summary_box_1_bar',false);return false" href="#"><img alt="+" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/plus.png" border="0"> CORE (COnnecting REpositories)</a></div></div><div class="panel-body" id="ep_summary_box_1_content"><div id="ep_summary_box_1_content_inner"><div id="coreRecommenderOutput"><div class="tab-container" id="tabs">
+    <ul class="tabs clearfix">
+        <li id="general" class="active">
+            <a href="#">CORE</a> 
+        </li>
+                    <li id="specificLibrary" class=""> 
+                <a href="#">White Rose E-theses Online</a> 
+            </li>
+            </ul>
+</div>
+ 
+    
+    <div id="coreRecommender-tab1" class="coreRecommender">
+                        <div class="coreStatusMessage"></div>
+    <ul>
+                    <li>
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/199219128?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=1&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588" id="199219128" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/199219128?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=1&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588">
+                    <div class="thumb"><img alt="199219128 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_007.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Blind signal separation methods for InSAR: The potential to automatically detect and monitor signals of volcanic deformation</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose Research Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    'American Geophysical Union (AGU)'
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2018</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Gaddes  M                                                   
+                                                         </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li lang="en">
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/237466938?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=2&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588" id="237466938" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/237466938?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=2&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588">
+                    <div class="thumb"><img alt="237466938 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_010.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Using Machine Learning to Automatically Detect Volcanic Unrest in a Time Series of Interferograms</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose Research Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    'American Geophysical Union (AGU)'
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2019</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Gaddes  ME,                                                 
+                                    Hooper  A,                          
+                                                           Bagnardi  M  
+                                                                        
+                                  </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li>
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/83942047?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=3&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588" id="83942047" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/83942047?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=3&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588">
+                    <div class="thumb"><img alt="83942047 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_004.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Transient deformation 
+associated with explosive eruption measured at Masaya volcano 
+(Nicaragua) using Interferometric Synthetic Aperture Radar</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose Research Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    'Elsevier BV'
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2017</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Stephens  KJ,                                               
+                                      Ebmeier  SK,                      
+                                                               Young  
+NK,                                                                     
+                Biggs  J                                                
+                                                            </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li lang="en">
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/200839448?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=4&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588" id="200839448" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/200839448?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=4&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588">
+                    <div class="thumb"><img alt="200839448 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_008.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">A deep learning approach to detecting volcano deformation from satellite
+  imagery using synthetic datasets</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    arXiv.org e-Print Archive
+                                    </span>
+                                                        
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2019</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Anantrasirichai  Nantheera,                                 
+                                                    Biggs  Juliet,      
+                                                                        
+       Albino  Fabien,                                                  
+                                   Bull  David                          
+                                                                        
+          </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li lang="en">
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/270296588?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=5&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588" id="270296588" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/270296588?source=2&amp;algorithmId=14&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=094e1afd-e0cb-4132-8dde-8522c5081dd3&amp;position=5&amp;recommendation_type=same_repo&amp;otherRecs=199219128,237466938,83942047,200839448,270296588">
+                    <div class="thumb"><img alt="270296588 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_009.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Geodetic Imaging of Volcanic Deformation with Time Series Radar Interferometry</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    University of Miami: Scholarly Repository
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    Scholarly Repository
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2019</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Yunjun  Zhang                                               
+                                                             </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+            </ul>
+<div class="footer">
+    <a href="https://core.ac.uk/" onclick="window.open(this.href);
+                return false;">
+        <img alt="CORE logo" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/logo.png">
+    </a>
+</div>
+            </div>
+
+    <div id="coreRecommender-tab2" class="coreRecommender" style="display: none;">
+                        <div class="coreStatusMessage"></div>
+    <ul>
+                    <li>
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/42605326?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=1&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920" id="42605326" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/42605326?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=1&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920">
+                    <div class="thumb"><img alt="42605326 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_002.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Interferometric Synthetic Aperture Radar for slow slip applications</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose E-theses Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    University of Leeds
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2015</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Bekaert  David Peter Sonja                                  
+                                                                        
+  </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li>
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/42605272?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=2&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920" id="42605272" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/42605272?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=2&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920">
+                    <div class="thumb"><img alt="42605272 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_005.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Measuring and modelling the crustal response to the 2011 eruption of Nabro volcano, Eritrea</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose E-theses Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    University of Leeds
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2015</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Hamlyn  Joanna Elizabeth                                    
+                                                                        </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li>
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/29030419?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=3&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920" id="29030419" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/29030419?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=3&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920">
+                    <div class="thumb"><img alt="29030419 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">LiDAR and InSAR analysis of deformation in the Krafla rift zone,
+
+NE Iceland</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose E-theses Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    University of Leeds
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2014</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Bramham  Emma Kristy                                        
+                                                                    </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li lang="en">
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/189841768?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=4&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920" id="189841768" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/189841768?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=4&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920">
+                    <div class="thumb"><img alt="189841768 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_006.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Measuring and modelling the earthquake deformation cycle at continental dip-slip faults</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose E-theses Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    University of Leeds
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2018</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Ingleby  Thomas Francis                                     
+                                                                       </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+                    <li lang="en">
+                <a class="documentTpl" href="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/1145920?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=5&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920" id="1145920" data-value="https://core.ac.uk/recommender/redirect?url=https://core.ac.uk/display/1145920?source=2&amp;algorithmId=13&amp;similarToDoc=237179456&amp;similarToDocKey=CORE&amp;recSetID=894a57cf-348f-4a32-ad45-c511ec558f8b&amp;position=5&amp;recommendation_type=same_repo&amp;otherRecs=42605326,42605272,29030419,189841768,1145920">
+                    <div class="thumb"><img alt="1145920 article preview" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/medium_003.jpg">
+                    </div>
+                    <div class="information">
+                        <div class="title">Measuring and modelling deformation during the Dabbahu (Afar)
+
+rifting episode</div>
+
+                        <div class="detail-info">
+                                                            <span class="label" lang="en">
+                                        Provided by:&nbsp;
+                                    </span>
+                                <span class="corerec-repository">
+                                    White Rose E-theses Online
+                                    </span>
+                                                                                        <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Publisher:&nbsp;
+                                    </span>
+                                <span class="corerec-publisher">
+                                    University of Leeds
+                                </span>
+                            
+                                                            <span class="label">&nbsp;|&nbsp;</span>
+                                <span class="label" lang="en">
+                                        Year:&nbsp;
+                                </span>
+                                <span class="corerec-year">2010</span>
+                                                    </div>
+
+                        <div class="corerec-authors">
+                                <span class="corerec-cit_authors">
+                                                                            <span class="label" lang="en">
+                                            by&nbsp;</span>
+                                                                        
+            Hamling  Ian                                                
+                                                            </span>
+                        </div>
+                    </div>
+                </a>
+                            </li>
+            </ul>
+<div class="footer">
+    <a href="https://core.ac.uk/" onclick="window.open(this.href);
+                return false;">
+        <img alt="CORE logo" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/logo.png">
+    </a>
+</div>
+            </div>
+</div><script type="text/javascript">
+            (function (d, s, idScript, idRec, userInput) {
+                var coreAddress = 'https://core.ac.uk';
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(idScript))
+                    return;
+                js = d.createElement(s);
+                js.id = idScript;
+                js.src = coreAddress + '/recommender/embed.js';
+                fjs.parentNode.insertBefore(js, fjs);
+
+                localStorage.setItem('idRecommender', idRec);
+                localStorage.setItem('userInput', JSON.stringify(userInput));
+
+                
+            }(document, 'script', 'recommender-embed', '09aa13', {}));</script></div></div></div></div><div class="ep_summary_content_after"></div></div>
+				</div>
+			</main>
+		  </div>
+		</div>
+  </div>
+</div><div style="visibility: hidden; height: 1px; width: 1px; position: absolute; top: -9999px; z-index: 100000;" id="_atssh"><iframe id="_atssh418" title="AddThis utility frame" style="height: 1px; width: 1px; position: absolute; top: 0px; z-index: 100000; border: 0px none; left: 0px;" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/sh.html"></iframe></div><style id="service-icons-0"></style>
+
+<footer class="bs-footer">
+<!--  <div id="footer-feedback" class="container-fluid text-center">
+    <a class="modalButton" data-toggle="modal" data-src="/feedback.html?refUrl=" href="#feedback" data-height="500" data-width="100%">Redesign feedback <span aria-hidden="true" class="glyphicon glyphicon-comment"></span></a>
+  </div> -->
+  
+<div class="container-fluid" id="footer-nav">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="container">
+<!-- Space for corporate footer -->
+	<nav class="row">
+		<div class="col-xs-12 col-md-4 deposit">
+			<h2>Deposit</h2>
+			<ul>
+				<li><a href="https://etheses.whiterose.ac.uk/cgi/register">Create account</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/cgi/users/home">Login</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/deposit.html">Deposit your thesis</a></li>
+<!--				<li><a href="/deposit.html#leeds">Help for Leeds students</a></li>
+				<li><a href="/deposit.html#sheffield">Help for Sheffield students</a></li>
+				<li><a href="/deposit.html#york">Help for York students</a></li> -->
+			</ul>
+		</div>
+		<div class="col-xs-12 col-md-4 discover">
+			<h2>Discover</h2>
+			<ul>
+				<li><a href="https://etheses.whiterose.ac.uk/">Home</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/view/">Browse</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/cgi/search/">Search</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/cgi/latest_tool">Latest additions</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/restricted.html">Restricted items / requesting</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/other_sources.html">Other sources of theses</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/cgi/stats/report/">Statistics</a></li>
+			</ul>
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<h2>About eTheses Online</h2>
+			<ul>
+				<li><a href="https://etheses.whiterose.ac.uk/information.html">About</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/faq.html">FAQs</a></li>
+<!--				<li><a href="/policies.html">Policies</a></li> -->
+				<li><a href="https://etheses.whiterose.ac.uk/copyright.html">Copyright and reuse</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/privacy_and_data_protection.html">Privacy and data protection</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/contact.html">Contact</a></li>
+				<li><a href="https://etheses.whiterose.ac.uk/accessibility.html">Accessibility</a></li>
+				<li><a href="https://eprints.whiterose.ac.uk/">White Rose Research Online</a></li>
+				<li><a href="https://universitypress.whiterose.ac.uk/">White Rose University Press</a></li>
+			</ul>
+		</div>
+	</nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="footer-brand">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="container">
+
+	<div class="row">
+		<div class="col-md-8">
+			<p>White Rose eTheses Online supports OAI 2.0 with a base URL of https://etheses.whiterose.ac.uk/cgi/oai2</p>
+			<p class="small">White Rose Research Online is powered by <a href="http://eprints.org/software/">EPrints 3</a> 
+				which is developed by the 
+				<a href="http://www.ecs.soton.ac.uk/">School of Electronics and Computer Science</a> at the
+				 University of Southampton. 
+				 <a href="http://eprints.whiterose.ac.uk/eprints/">More information and software credits.</a></p>
+		</div>
+		<div class="col-md-4">
+			<p>Supported by <img alt="White Rose Libraries" src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/WRL_logo___white_with_transparent_background.png" width="195px"></p>
+		</div>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+	
+</footer>
+
+<!-- ################################################ -->
+                
+        
+	
+		<!-- Scripts to override some eprints defaults and allow the default bootstrap to style everything -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/buttons.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/menu.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/forms.js">// <!-- No script --></script>
+		
+		<!--script src="https://rawgit.com/UEL-LLS/eprints-jquery-scripts/master/ep_toolbox.js" /-->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/workflow.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/workflow_icons.js">// <!-- No script --></script>
+		
+		<!-- testing a script to convert some of eprints old school tables in to divs that can be easily manipluated by bootstrap -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/table2div.js">// <!-- No script --></script>
+		
+		<!-- script to make more things panels -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/ep_toolbox.js">// <!-- No script --></script>
+		
+		<!-- script to make the admin settings look better -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/admin_menus.js">// <!-- No script --></script>
+		
+		<!-- script to make the tabs above stuff look better -->
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/tabs.js">// <!-- No script --></script>
+
+
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/table-destroyer.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/ep_search_control.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/bazaar-styler.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/ep_warnings.js">// <!-- No script --></script>
+		<script src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/adv_search.js">// <!-- No script --></script>
+
+
+		<!-- important script to allow bootstrap.js to hide things, without Prototype getting upset and throwing a hissy fit. -->
+		<!-- from https://gist.github.com/andyhausmann/56ae58af55b14ecd56df --> 
+		<script>
+<!--
+		jQuery(document).ready( function() {
+			var isBootstrapEvent = false;
+			if (window.jQuery) {
+				var all = jQuery('*');
+				jQuery.each(['hide.bs.dropdown',
+					'hide.bs.collapse',
+					'hide.bs.modal',
+					'hide.bs.tooltip',
+					'hide.bs.popover'], function(index, eventName) {
+					all.on(eventName, function( event ) {
+						isBootstrapEvent = true;
+					});
+				});
+			}
+			var originalHide = Element.hide;
+			Element.addMethods({
+				hide: function(element) {
+					if(isBootstrapEvent) {
+						isBootstrapEvent = false;
+						return element;
+					}
+					return originalHide(element);
+				}
+			});
+
+			//fix simple search button (that should look like a link)
+			jQuery('input[name="_action_advanced"]').attr('style','border: none; text-decoration: underline; background: none; color:#489fd9');
+			// END fix simple search button
+		}); 
+
+// JLRS responsive design top-bar 
+		var onResize = function() {
+		  // apply dynamic padding at the top of the body according to the fixed navbar height
+		    jQuery("body").css("padding-top", jQuery(".navbar-fixed-top").height());
+		    justifyTopNavLinks();
+
+		    if(!jQuery('#homepage_content').length){
+		      moveFeedbackFooter();
+		    }
+		 };
+
+		// attach the function to the window resize event
+		jQuery(window).resize(onResize);
+
+		// call it also when the page is ready after load or reload
+		jQuery(function() {
+			onResize();
+			jQuery(window).scroll(function() { 
+				moveFeedbackFooter();
+			});
+		});
+
+		var justifyTopNavLinks = function(){
+			var navWidth = jQuery('.navbar-fixed-top .container').width();
+			//var brandWidth = jQuery('.navbar-fixed-top .container .navbar-brand').outerWidth();
+			var brandWidth = jQuery('.navbar-fixed-top .container .navbar-header').outerWidth();
+
+			var navLinksTotalWidth = 0;
+			var linkCount = jQuery('.navbar-fixed-top .container li a').length;
+
+			jQuery('.navbar-fixed-top .container li a').each(function(){
+				navLinksTotalWidth += jQuery(this).width();
+			});
+
+			var padding = Math.floor((navWidth - brandWidth - navLinksTotalWidth) /(2*linkCount));
+			var paddingString = "#nvc ul li a { padding-left:"+padding+"px; padding-right:"+padding+"px; } \
+			#nvc.in ul li a, #nvc.collapsing ul li a { padding-left:15px; padding-right:15px; }";
+			if( !jQuery('#justifyTopNavLinks').length ){
+				jQuery('<style id="justifyTopNavLinks">').prop("type", "text/css").html( paddingString ).appendTo('head');
+			} else {
+				jQuery('#justifyTopNavLinks').html( paddingString );
+			}
+		}
+
+		var moveFeedbackFooter = function(){
+//jQuery(window).scroll(function() {
+			if( jQuery(window).scrollTop() + jQuery(window).height() < jQuery(document).height() - jQuery('footer').height() + jQuery('#footer-feedback').height() ){
+				jQuery('#footer-feedback').addClass('navbar-fixed-bottom');
+			} else {
+				jQuery('#footer-feedback').removeClass('navbar-fixed-bottom');
+			}
+//		});
+
+		};
+-->		</script>
+		<script><!--
+// this script is wrapped in html comment so the Template handler doesn't convert the '>' into a &gt;!		
+			jQuery(window).load(function() {
+				//jQuery('#blocker').remove();
+
+if (jQuery(".navbar-fixed-top").length > 0) {
+	var navHeight = jQuery(".navbar-fixed-top").height(),
+	//	var navHeight = 40,
+		shiftWindow = function() { scrollBy(0, -navHeight - 10); };
+
+	if (location.hash) {
+			setTimeout(shiftWindow, 1);
+				}
+
+	window.addEventListener("hashchange", shiftWindow);
+	}
+			});
+                --></script>
+<!-- ################################################ -->
+<div id="feedback" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close btn btn-success" data-dismiss="modal" aria-hidden="true">X</button>
+        <h4 class="modal-title" id="myModalLabel">White Rose eTheses Online - website feedback</h4>
+      </div>
+      <div class="modal-body" style="margin: 0 15px;">
+        <iframe frameborder="0"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+<!--
+jQuery(document).ready(function(){
+  jQuery('#feedback').on('shown.bs.modal', function () {
+    jQuery('.modal-body iframe').css( 'height', (jQuery( window ).height()*0.8) - jQuery('.modal-header').outerHeight() - jQuery('.modal-footer').outerHeight() );
+  });
+});
+--></script>
+<script>
+jQuery('a.modalButton').on('click', function(e) {
+    var src = jQuery(this).attr('data-src');
+//    var height = jQuery(this).attr('data-height') || 300;
+    var width = jQuery(this).attr('data-width') || 400;
+
+    jQuery('#feedback-submit').show();
+    jQuery("#feedback iframe").attr({'src':src+encodeURIComponent(window.location),
+//                               'height': height,
+                               'width': width
+    });
+    jQuery('#feedback iframe').on('load', function(){
+      if(jQuery('#feedback iframe').contents().find('#ss-form').length){ 
+        if(!jQuery('#feedback-submit').length){
+	  jQuery('<button type="button" class="btn btn-primary" id="feedback-submit">Submit feedback</button>').appendTo('.modal-footer').on('click',function(){
+	    jQuery('#feedback iframe').contents().find('#ss-submit').click();
+	  });
+        } else {
+          jQuery('#feedback-submit').show();
+        }
+      } else {
+        jQuery('#feedback-submit').hide();
+      }
+    });
+});
+</script>
+	
+<div id="overlay" style="display: none;"></div><div id="lightbox" style="display: none;"><div id="outerImageContainer" style="width: 250px; height: 250px;"><div id="imageContainer"><img id="lightboxImage" alt="Lightbox"><div id="lightboxMovie"></div><div id="loading"><a id="loadingLink" href="#" role="alert" aria-busy="true"><img src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/loading.gif" alt="loading..."></a></div></div></div><div id="imageDataContainer"><div id="imageData"><div id="hoverNav"><a id="prevLink" href="#"><span style="display:none; font-size:11px;">Previous</span></a><a id="nextLink" href="#"><span style="display:none; font-size:11px;">Next</span></a></div><div id="imageDetails"><span id="caption"></span><span id="numberDisplay"></span></div><div id="bottomNav"><a id="bottomNavClose" href="#"><img src="Automatic%20Detection%20of%20Volcanic%20Unrest%20Using%20Interferometric%20Synthetic%20Aperture%20Radar%20-%20White%20Rose%20eTheses%20Online_fichiers/closelabel.gif" alt="Close"></a></div></div></div></div></body></html>
