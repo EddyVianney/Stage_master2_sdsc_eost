@@ -11,6 +11,7 @@ import pandas as pd
 from Pixel import Pixel
 from DataFromImageCorrelation import DataFromImageCorrelation
 from Clustering import Clustering
+from Visualization import Visualization
 
 def load_data(filename):
 
@@ -67,5 +68,16 @@ if __name__ == '__main__':
     df_ew, df_ew_ts = load_data('MM_TIO_EW_31TGK_20151227_to_20200906.csv')
     # chargement de la composante Nord-Sud du mouvement du sol
     df_ns, df_ns_ts = load_data('MM_TIO_NS_31TGK_20151227_to_20200906.csv')
+    
     # fusionner les fichiers sur la topo et les vitesses (pour éviter la redondance de l'information)
-    print('jjj')
+    df_ew.rename(columns={'Vel': 'Vel_ew'}, inplace=True)
+    df_ns.rename(columns={'Vel': 'Vel_ns'}, inplace=True)
+    geo = pd.concat([df_ew[['id', 'Lat','Lon','Topo','Vel_ew']], df_ns[['Vel_ns']]], axis=1)
+    
+    n = 2000
+    RASTER_FOLDER_PATH = 'rasters'
+    DEM_FILENAME =  '31TGK_copernicus_dem.tif'
+    Data = DataFromImageCorrelation(RASTER_FOLDER_PATH, DEM_FILENAME, geo.head(n), df_ns_ts[:n], df_ew_ts[:n])
+    
+    # calcul des profils de vitesse
+    Data.compute_velocities(min_slope=5, ampl=2)

@@ -22,6 +22,7 @@ import json
 from osgeo import gdal 
 from subprocess import Popen
 import simplekml
+from TimeSerie import TimeSerie
 
 class DataFromImageCorrelation():
     
