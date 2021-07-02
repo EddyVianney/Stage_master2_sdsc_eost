@@ -1,0 +1,27 @@
+\babel@toc {french}{}
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}% 
+\contentsline {chapter}{\numberline {2}Pr\IeC {\'e}sentation de l'organisme d'accueil}{3}{chapter.2}% 
+\contentsline {chapter}{\numberline {3}M\IeC {\'e}thodes}{4}{chapter.3}% 
+\contentsline {chapter}{\numberline {4}R\IeC {\'e}sultats}{5}{chapter.4}% 
+\contentsline {section}{\numberline {4.1}Contraintes}{5}{section.4.1}% 
+\contentsline {chapter}{\numberline {5}Les m\IeC {\'e}thodes de partitionnement}{7}{chapter.5}% 
+\contentsline {section}{\numberline {5.1}K-means}{7}{section.5.1}% 
+\contentsline {section}{\numberline {5.2}SAMARAH}{7}{section.5.2}% 
+\contentsline {subsubsection}{Modifications et convergence des r\IeC {\'e}sultats}{7}{subsubsection*.2}% 
+\contentsline {subsubsection}{Combinaison des r\IeC {\'e}sultats}{7}{subsubsection*.3}% 
+\contentsline {chapter}{\numberline {6}Validation}{9}{chapter.6}% 
+\contentsline {section}{\numberline {6.1}M\IeC {\'e}thodes de validation}{9}{section.6.1}% 
+\contentsline {subsection}{\numberline {6.1.1}Validation interne}{9}{subsection.6.1.1}% 
+\contentsline {subsection}{\numberline {6.1.2}Validation externe}{10}{subsection.6.1.2}% 
+\contentsline {section}{\numberline {6.2}Stabilit\IeC {\'e} des clusters}{10}{section.6.2}% 
+\contentsline {chapter}{\numberline {7}Application}{12}{chapter.7}% 
+\contentsline {section}{\numberline {7.1}Jeux de donn\IeC {\'e}es }{12}{section.7.1}% 
+\contentsline {section}{\numberline {7.2}M\IeC {\'e}thodologie}{12}{section.7.2}% 
+\contentsline {section}{\numberline {7.3}R\IeC {\'e}sultats}{13}{section.7.3}% 
+\contentsline {section}{\numberline {7.4}Discussion}{15}{section.7.4}% 
+\contentsline {subsubsection}{Sensibilit\IeC {\'e} de l'algorithme}{15}{subsubsection*.4}% 
+\contentsline {subsubsection}{Qualit\IeC {\'e} interne et nombre de clusters}{15}{subsubsection*.5}% 
+\contentsline {subsubsection}{Influence de la normalisation}{15}{subsubsection*.6}% 
+\contentsline {subsubsection}{Influence de la coh\IeC {\'e}rence des contraintes}{15}{subsubsection*.7}% 
+\contentsline {chapter}{\numberline {8}Conclusion}{16}{chapter.8}% 
+\contentsline {chapter}{Bibliographie}{17}{chapter*.8}% 
