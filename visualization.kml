@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="962819">
+        <Style id="962822">
+            <IconStyle id="962823">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962824">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962827">
+            <IconStyle id="962828">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962829">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962832">
+            <IconStyle id="962833">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962834">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962837">
+            <IconStyle id="962838">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962839">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962842">
+            <IconStyle id="962843">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962844">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962847">
+            <IconStyle id="962848">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962849">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962852">
+            <IconStyle id="962853">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962854">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962857">
+            <IconStyle id="962858">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962859">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962862">
+            <IconStyle id="962863">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962864">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="962867">
+            <IconStyle id="962868">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="962869">
+                    <href>http://maps.google.com/mapfiles/ms/micons/red-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Placemark id="962821">
+            <description>0</description>
+            <styleUrl>#962822</styleUrl>
+            <Point id="962820">
+                <coordinates>6.627922,44.422007,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962826">
+            <description>1</description>
+            <styleUrl>#962827</styleUrl>
+            <Point id="962825">
+                <coordinates>6.628048,44.422003,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962831">
+            <description>2</description>
+            <styleUrl>#962832</styleUrl>
+            <Point id="962830">
+                <coordinates>6.628173,44.421999,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962836">
+            <description>3</description>
+            <styleUrl>#962837</styleUrl>
+            <Point id="962835">
+                <coordinates>6.628298,44.421995,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962841">
+            <description>4</description>
+            <styleUrl>#962842</styleUrl>
+            <Point id="962840">
+                <coordinates>6.628424,44.421991,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962846">
+            <description>5</description>
+            <styleUrl>#962847</styleUrl>
+            <Point id="962845">
+                <coordinates>6.628549,44.421987,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962851">
+            <description>6</description>
+            <styleUrl>#962852</styleUrl>
+            <Point id="962850">
+                <coordinates>6.628675,44.421983,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962856">
+            <description>7</description>
+            <styleUrl>#962857</styleUrl>
+            <Point id="962855">
+                <coordinates>6.6288,44.421979,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962861">
+            <description>8</description>
+            <styleUrl>#962862</styleUrl>
+            <Point id="962860">
+                <coordinates>6.628925,44.421975,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="962866">
+            <description>9</description>
+            <styleUrl>#962867</styleUrl>
+            <Point id="962865">
+                <coordinates>6.629051,44.421971,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
