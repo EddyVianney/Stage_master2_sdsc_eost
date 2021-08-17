@@ -1,4 +1,6 @@
 import datetime
+import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA, FastICA
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -21,6 +23,7 @@ import copy
 from sklearn.cluster import DBSCAN
 import numpy.ma as ma
 from numpy import linalg as LA
+import hdbscan
 
 
 class Clustering():

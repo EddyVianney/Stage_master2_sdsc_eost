@@ -30,7 +30,6 @@ from sklearn.cluster import DBSCAN
 import numpy.ma as ma
 from numpy import linalg as LA
 
-
 class DataFromImageCorrelation():
 
     def __init__(self, pixels):

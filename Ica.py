@@ -33,8 +33,13 @@ class Ica():
 
     def __init__(self, data_path):
         uu, vv = self.load_displacements(data_path)
+        uu_4ica, vv_4ica = self.prepare(uu, vv)
+        self.n_filenames = uu.shape[1] + vv.shape[1]
         self.uu = uu
         self.vv = vv
+        self.uu_4ica = uu_4ica
+        self.vv_4ica = vv_4ica
+        self.aa = self.build_aa()
 
     def load_displacements(self, data_path):
         uu, vv = [], []
@@ -48,9 +53,47 @@ class Ica():
                     uu.append(values)
         return np.array(uu), np.array(vv)
 
-    def get_component_filenames(data_path, component):
+    def get_component_filenames(self, data_path, component):
         filenames = []
         for filename in os.listdir(data_path):
             if 'FILTER' in filename and  component in filename:
                 filenames.append(filename)
         return filenames
+
+    def build_aa(self):
+        a = []
+        for i in range(0, self.n_filenames - 1):
+            for j in range(i+1, self.n_filenames):
+                        b = np.zeros(self.n_filenames - 1)
+                        b[i:j] = 1
+                        a.append(b)
+        return np.linalg.pinv(np.transpose(a).dot(a)).dot(np.transpose(a))
+
+    def prepare(self, uu, vv):
+        vv_4ica = []
+        uu_4ica = []
+        for i in range(0, uu.shape[1]):
+            for j in range(0, vv.shape[2]):
+                vv_4ica.append(uu[:, i, j])
+                uu_4ica.append(vv[:, i, j])
+        return uu_4ica, vv_4ica
+
+    def ica(self, n_components, whiten='boolean'):
+        icav = FastICA(n_components=n_components, whiten=whiten)
+        icau = FastICA(n_components=n_components, whiten=whiten)
+
+        S_v = icav.fit_transform(self.vv_4ica)  # Reconstruct signals
+        S_u = icau.fit_transform(self.uu_4ica)  # Reconstruct signals
+        S_v_t = np.transpose(S_v)
+        S_u_t = np.transpose(S_u)
+        A_v = icav.mixing_
+        A_u = icau.mixing_
+
+        du = []
+        dv = []
+
+        for i in range(0, n_components):
+            du.append(self.aa.dot(A_u[:, i]))
+            dv.append(self.aa.dot(A_v[:, i]))
+        return du, dv
+

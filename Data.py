@@ -30,6 +30,7 @@ from sklearn.cluster import DBSCAN
 import numpy.ma as ma
 from numpy import linalg as LA
 import rasterio
+from pyproj import Proj
 
 class Data():
 
