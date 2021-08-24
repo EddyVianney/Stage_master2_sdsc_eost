@@ -36,6 +36,8 @@ class DataFromImageCorrelation():
         self.pixels = pixels
         self.n_cores = multiprocessing.cpu_count()
         self.sigma = self.compute_vlm_std()
+        self.filter_status = {filter_name: True for filter_name in
+                              ['factor', 'azimuth', 'azimuth_tol', 'azimuth_pr', 'slope', 'alpha', ]}
         self.non_filtered_ids = []
         self.velocities = []
 

@@ -24,9 +24,12 @@ from sklearn.cluster import DBSCAN
 import numpy.ma as ma
 from numpy import linalg as LA
 import hdbscan
+from dtaidistance import dtw
 
 
 class Clustering():
+
+    base = 'http://maps.google.com/mapfiles/ms/micons/'
 
     def __init__(self, data, option=0):
         self.data = data
@@ -49,7 +52,7 @@ class Clustering():
         velocities = self.data.velocities
         size = len(series)
         distances_matrix = np.zeros(shape=(size, size))
-        scaler = self.get_scaler()
+        scaler = StandardScaler()
         for n in range(size):
             for m in range(n, size):
                 s1 = scaler.fit_transform(velocities[n])
@@ -181,11 +184,10 @@ class Clustering():
             print('Hdbscan only found outliers. kml file cannot be generated !')
 
     def generate_icones2(self):
-        base = 'http://maps.google.com/mapfiles/ms/micons/'
+        base = Clustering.base
         colors = ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'pink']
         return [base + color + '-dot.png' for color in (colors + ['ltblue'])[:]] + [base + color + '.png' for color in
                                                                                     (colors + ['lightblue'])[:]]
-
     def generate_kml_file(self, scale=2):
         labels = self.result.labels_
         if labels.max() > -1:
@@ -210,29 +212,7 @@ class Clustering():
                 return icon_links[labels[i]]
 
     def generate_icones2(self):
-        base = 'http://maps.google.com/mapfiles/ms/micons/'
+        base = Clustering.base
         colors = ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'pink']
         return [base + color + '-dot.png' for color in (colors + ['ltblue'])[:]] + [base + color + '.png' for color in
                                                                                     (colors + ['lightblue'])[:]]
-
-    # http://tancro.e-central.tv/grandmaster/markers/google-icons/mapfiles-ms-micons.html
-    def generate_icones(self, labels, scale=2):
-        BASE = 'http://maps.google.com/mapfiles/ms/micons/'
-        scales = None
-        colors = ['blue', 'red', 'yellow', 'green', 'orange', 'purple', 'pink']
-        icon_links = [BASE + color + '-dot.png' for color in (colors + ['ltblue'])[:]] + [BASE + color + '.png' for
-                                                                                          color in
-                                                                                          (colors + ['lightblue'])[:]]
-        n_clusters = labels.max() + 1
-        if n_clusters > len(icon_links):
-            q = int(n_clusters / len(icon_links))
-            r = n_clusters - q * len(icon_links)
-            icon_links = (icon_links * q)[:] + icon_links[:r]
-            scales = [scale * t for t in range(len(icon_links))]
-        else:
-            scales = [scale] * n_clusters
-        return icon_links, scales
-
-    # coefficient de silhouette ?
-    def validate(self):
-        return DBCV(self.data.magnitudes, self.result.labels_, dist_function=euclidean)
