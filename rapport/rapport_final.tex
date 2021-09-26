@@ -1,0 +1,545 @@
+
+\documentclass[11pt, openany]{report}
+\usepackage{euler}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage[OT1]{fontenc}
+\usepackage[a4paper,left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[frenchb]{babel}
+\usepackage{libertine}
+\usepackage[pdftex]{graphicx}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[export]{adjustbox}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+\newcommand{\hsp}{\hspace{20pt}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\SetKwFor{For}{pour}{faire}{endfor}
+\SetKwFor{While}{tant que}{faire}{endw}
+\SetKwIF{If}{ElseIf}{Else}{si}{alors}{else si}{sinon}{endif}
+\setlength{\parskip}{0.2em}
+\usepackage{titlesec}
+\usepackage{subcaption}
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\titleformat{\section}{\bfseries\Large}{\thesection.}{0.5em}{}
+\titleformat{\subsubsection}{}{\thesubsubsection}{1em}{\itshape}
+\renewcommand\bibname{References}
+\usepackage{glossaries}
+\makeglossaries
+\usepackage[%
+	colorlinks=true,
+	pdfborder={0,0,0},
+	linkcolor=blue
+]{hyperref}
+\usepackage{fancyhdr}
+\setlength{\headheight}{8pt}
+\pagestyle{headings}
+\renewcommand{\baselinestretch}{1}
+\rfoot{Page \thepage}
+\normalfont
+\setlength{\parskip}{0.5em}
+\begin{document}
+\begin{titlepage}
+  \begin{sffamily}
+  \begin{center}
+    % Upper part of the page. The '~' is needed because \\
+    % only works if a paragraph has started.
+    % \includegraphics[scale=0.04]{}~\\[1.5cm]
+
+
+\begin{figure}[h!]
+  \begin{minipage}{0.48\textwidth}
+   \centering
+  \includegraphics[width=0.6\linewidth,left]{unistra.png}
+  \end{minipage}\hfill
+  \begin{minipage}{0.48\textwidth}
+   \centering
+  \includegraphics[width=0.6\linewidth,right]{eost.png}
+  \end{minipage}
+\end{figure} 
+
+
+    \textsc{\LARGE \\
+Université de Strasbourg}\\[3cm]
+
+    \textsc{\Large Rapport intermédiaire de stage Master}\\[1.5cm]
+
+    % Title
+    \HRule \\[0.4cm]
+    { \huge \bfseries
+Développement d'un outil d'analyse automatique de longues séries temporelles de mouvements du sol et de détection d'anomalies : application à des produits issues de données satellitaires Sentinel-1 et Sentinel 2 \\[0.4cm] }
+
+\HRule \\[2cm]
+	  	
+    % Author and supervisor
+    \begin{minipage}{0.4\textwidth}
+      \begin{flushleft} \large
+      	\textsc{Etudiant :}\\ 
+        \textsc{Pambou Moubogha Eddy}\\
+         \textsc{année scolaire 2020-2021}\\
+      \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.4\textwidth}
+      \begin{flushright} \large
+        \textsc{Encadrant :}\\ 
+        \textsc{Jean-Philippe Malet}\\
+      \end{flushright}
+    \end{minipage}
+
+    \vfill
+
+    % Bottom of the page
+    {\large 3 mai 2021 — 30 septembre 2021}
+
+  \end{center}
+  \end{sffamily}
+\end{titlepage}
+\newpage
+\tableofcontents
+\chapter{Introduction}
+Les glissements de terrain apparaissent lorsqu'une masse de terre descend sur un plan de glissement, provoqués par les activités anthropiques ou des phénomènes climatiques, géologiques ou géomorphologiques.
+Ces déplacements peuvent être lents (quelques millimètres par an) ou rapides (quelques centaines de mètres par jour). \par
+
+Ces mouvements peuvent être à l'origine de catastrophes naturelles causant des pertes humaines et des dommages importants sur les infrastructures. Au plan mondial, les mouvements de terrain causent chaque année la mort de 800 à 1000 personnes. En France, ce risque concerne environ 7000 communes et présente, pour un tiers d’entre elles, un niveau de gravité fort.\par
+
+Pour prévenir ces catastrophes, il faut surveilller les mouvements du sol. Cette surveillance est de plus en plus réalisée en utilisant les techniques de télédétection. En observation de la Terre, on distingue deux techniques de télédétection : l'imagerie radar et optique. L'imagerie radar mesure la projection 3D de la déformation dans la ligne de visée du satellite. Elle possède une résolution millimétrique et est adaptée pour mesurer les déplacements lents. Pour mesurer les déplacements rapides, l'imagerie optique est plus utilisée. Cette technique possède une résolution métrique et est sensible aux composantes Nord-Sud et Est-Ouest de la déformation.
+
+on peut exploiter : a) des ondes émises émises par le soleil puis réfléchies par la Terre et enregistrées par un capteur embarqué dans un satellite b) des ondes émises par un émetteur artificiel placé sur le satellite puis réfléchies par la surface de la Terre et enregistrées par un capteur placé sur ce même satellite. Dans le premier cas, on parle de télédétection passive et les données acquises sont des images optiques, dans le second cas de télédétection active et d’images radar. La première méthode est sensible aux composantes Nord-Sud et Est-Ouest de la déformation et est plus adaptée pour la détection des glissements rapides. La deuxième méthode ne mésure que le projeté du déplacement 3D dans la ligne de visée du satellite et est adappté pour l'étude des glissements lents.
+
+Il existe plusieurs algorithmes pour exploiter les images satellitaires. Ils s'appuient tous sur la corrélation d'images. Parmi eux, on trouve l'algorithme MPIC-OPT, récemment développé par les chercheurs de l'équipe Déformation Active de l'EOST. Les séries temporelles de déplacement calculés par MPIC-OPT, encore très peu exploitéés, offrent la possibilité de développer de nouveaux outils pour la détection des glissements de terrain.
+
+Afin de valoriser ces données, ce stage propose d'appliquer la décomposition en composantes indépendantes (ICA) pour débruiter les signaux dérivés par MPIC-OPT et de mettre en place un workflow de détection des glissements de terrain en utilisant les statistiques et le clustering. Les différentes approches mises au point seront testées sur le glissement de La Valette.
+
+\chapter{Présentation de l'organisme d'accueil}
+L'Ecole et Observatoire des Sciences de la Terre (EOST) est une école d'ingénieurs en géophysique
+créé en 1935 par Edmond Rothé. Comme son nom l'indique l'EOST est également un observatoire. L’objectif premier de l’UMS830 est de faciliter l'observation pérenne des phénomènes naturels et de rendre accessible les données recueillies à la communauté scientifique. Ses tâches d'observation entrent dans le cadre des Services Nationaux d'Observation (SNO) labellisés par l'Institut National des Sciences de l'Univers du CNRS. Au total, l'EOST est impliqué dans dix services d'observation dont il est pilote au plan national ou partenaire actif. Ils concernent le domaine "Terre solide" et le domaine "Surfaces et interfaces continentales".
+
+Ce stage s'effectue au sein du pôle Recherche dans l'équipe Déformation Active. Les travaux de l'équipe portent sur la déformation lithosphérique, le fonctionnement des failles sismiques et la déformation de sub-surface. Elle est fédérée autour de plusieurs disciplines, telles que la géodésie, la tectonique active, la géomorphologie et la paléosismologie. Elle appuie fortement sa recherche sur les données acquises par les observatoires de l'EOST gérés par ses membres et sur des chantiers régionaux, principalement situés en Méditerranée et en Afrique.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{recherche.png}
+  \caption{Organigramme simplifié du pôle Recherche de l'EOST.}
+\end{figure}
+\chapter{Contexte du stage}
+
+\section{Débruitage des séries temporelles}
+Les séries temporelles dérivées par MPIC-OPT sont très bruitées et donc difficiles à interpréter. Une méthode statistique appelée \textbf{décomposition en composantes indépendantes} (ICA) a été appliquée à ces signaux afin d'éliminer le bruit. La méthode consiste à décomposer un ensemble de signaux mélangées par une transformation linéaire en un ensemble de signaux purs. Pour appliquer ICA, il est necessaire de connaître le nombres de sources (paramètre) et de disposer d'une heuristique pour sélectionner les sources d'interêt si on l'utilise comme outil de débruitage.
+
+La méthode a été testée sur les glissements de La Valette et d'Aiguilles. Le nombre de sources a été fixé aléatoirement et les sources pouvant correspondre à du signal gravitaire ont été sélectionnées manuellement en se basant sur les connaissances géologiques des sites étudiés. Les premières observations montrent que ICA est plus adapté aux déformations linéaires (site de La Valette). En présence de variations de vitesses importantes (site d'Aiguilles), la méthode donne de moins bons résultats. Dans les deux cas, les séries temporelles débruitées varient en fonction du nombre de sources et la sélection des sources gravitaires necessite l'intervention d'un expert.
+
+L'objectif de cette partie est donc de proposer une méthode pour déterminer le nombre de sources optimal et d'automatiser la sélection des sources gravitaires. 
+
+\section{Détection des glissements de terrain}
+Un glissement de terrain correspond au  déplacement d’une masse de terrains meubles ou rocheux le long d’une surface de rupture  (plane,   circulaire   ou quelconque). L'observation des glissements a deux finalités : la compréhension du phénomène et la gestion du risque (dimensionnement, surveillance).
+
+On trouve plusieurs approches dans la litterature sur la détection de glissements de terrain. Parmi ces approches, on peut citer les méthodes se basant sur le filtrage des vitesses. Ce type de méthode propose de rechercher les glissements dans les zones ayant des taux de déplacement relativement importants \cite{RMS}. Cependant, elle suppose que les déplacements sont linéaires au cours du temps. En réalité, la vitesse d'un glissement varie en fonction des saisons et peut être affectée par certains évènements géologiques. En conséquence, l'hypothèse des déplacements linéaires est souvent peu vérifiée mais elle reste une base de travail importante \cite{INTFC}. L'autre inconvenient est que la vitesse n'est pas un paramètre suffisant pour étudier et comprendre la dynamique d'un glissement de terrain.
+
+Pour essayer de dépasser cette limite, certaines méthodes utilisent directement les séries temporelles de déplacement. Par exemple, les auteurs (quel article?) proposent une classification des séries temporelles de déplacement pour cartographier les glissements de terrain dans l'Appennin du Nord en Italie \cite{INTFC}. Leur méthode consiste à rechercher des régimes de vitesses différents dans les séries temporelles en effectuant une série de tests statistiques. Cependant, les tests statistiques mis en oeuvre dépendent des profils de déplacement identifiés manuellement dans les données. Quoique difficile à généraliser, leur approche permet d'associer les régimes de vitesses identifiés à des évènements géologiques. Ce qui facilite l'interprétation des clusters trouvés.
+
+
+\chapter{Zone d'étude et jeux de données}
+\section{Zone d'étude}
+Notre zone d'étude est la vallée de l'Ubaye qui est caractérisée par un haut de versants façonné dans les formations très résistantes avec des altitudes allant de 1900 à 2100 m et des pentes supérieures à 45$^{\circ}$. Plusieurs glissements ont été recensés dans cette zone. L'un des glissements les plus grands est celui de La Valette situé sur la rive droite de l'Ubaye, dans le bassin du torrent de La Valette. Il s'est activé en mars 1982. Il fait une longueur d'environ 2000 m et sa zone de départ est situé vers 2000 m d'altitude. C'est le 3e plus grand glissement répertorié au niveau européen. Le glissement n'est pas homogène dans l'ensemble. En amont, on distingue des ravinements sur le bord des niches tandis qu'à l'aval le glissement se termine par une coulée de boue.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{zone_etude_val.jpg}
+  \caption{Zone d'étude. Le polygone en blanc délimite la zone d'étude. Les polygones en noir représentent les glissements repértoriés.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{lavalette.png}
+  \caption{Glissement de La valette.}
+\end{figure}
+
+\section{Acquisition des images optiques}
+L'imagerie optique est une technique de télédétection qui mesure les ondes éléctromagnétiques émises par le soleil et réfléchies par la surface terrestre. Les ondes sont enregistrées par un capteur optique installé dans un satellite.
+
+En présence de conditions météorologiques dégradées (brouillard, pluie, nuages) ou lorsque la luminosité  est trop faible (p. ex., la nuit), le satellite ne peut réaliser aucune mesure. En conséquence, la quantité d'images exploitables est diminuée et \textbf{les données finales ne sont pas régulièrement échantillonnées}.
+
+Parmi les satellites optiques les plus utilisés, on peut citer \textbf{Sentinel 2 (résolution 10 m)}, LandSat (résolution 15 m) et SPOT 5 (résolution 2.5 m).
+
+\section{Exploitation des images optiques}
+Il existe plusieurs algorithmes pour exploiter les images optiques. Nous nous limiterons à présenter le principe de la corrélation d'images et l'algorithme MPIC-OPT.
+\subsection{Corrélation d'images}
+La corrélation d'images est une méthode qui permet de mesurer les déplacements en deux dimensions entre deux images en se basant sur l'intensité des pixels. Il existe plusieurs algorithmes de corrélation d'images. Cependant, la résolution des images de base est le facteur le plus déterminant dans la qualité des résultats.
+
+La présence de végétation ou la modification de l'apparence du glissement peut créer des problèmes de décorrélation entre deux images.
+
+\subsection{MPIC-OPT}
+MPIC-OPT (Mutiple Pairwise Image Correlation of OPtical image Time-series) est un algorithme developpé par les chercheurs de l'équipe Déformation Active de l'EOST. Il propose de comparer plusieurs paires d’images et d’utiliser la redondance des données pour réduire le bruit. Il est composé de trois modules principaux : a) le module corrélation, b) le module correction c) le module d'analyse spatio-temporelle.
+
+Le \textbf{module correlation} réalise la catégorisation des pixels (suppression des pixels situés sous les zones nuageuses); il définit la  taille de la fenêtre glissante pour comparer deux images et il fournit une première grille des déplacements bruts dans les directions Nord-Sud et Est-Ouest.
+
+Le \textbf{module correction} est chargé d'appliquer diverses corrections sur les déplacements bruts calculés par le module corrélation (p. ex., ortho-rectification, filtrage des régions plates).
+
+Le \textbf{module d'analyse spatio-temporelle} permet de calculer les vitesses moyennes d'un intervalle donné. Il permet également de calculer la cohérence des vecteurs déplacements de chaque pixel. Enfin, il permet d'inverser les séries temporelles de chaque pixel sur les deux composantes.
+
+\section{Données}
+Notre jeu de données est composé des champs de déplacement de 87016 pixels calculés par l'algorithme MPIC à partir des images prises par le satellite copernicus 2. Chaque pixel est localisé par ses coordonnées géographiques (latitude et longitude) et comporte les données suivantes : les séries temporelles des déplacements dans les directions Nord-Sud et Est-Ouest, les vitesses moyennes associées (calculées par regression linéaire) et la cohérence qui est une grandeur comprise entre 0 et 1 et qui permet d'estimer la constance de la direction du vecteur déplacement d'un pixel au cours du temps. Les séries temporelles sont composées de 87 observations prises entre le 27 décembre 2015 et le 06 septembre 2020. L' acquisition d'images optiques étant difficile lorsque les conditions météorologiques sont dégradées, les séries temporelles ne sont pas régulièrement échantilonnées. Dans la direction Nord-Sud, les taux de déplacement varient entre -0.0094  et 0.0133 m/jour; dans la direction Est-Ouest, entre 0.0115 et 0.0138 m/jour.
+
+\chapter{Débruitage des séries temporelles}
+Les glissements de terrain résultent de la conjugaison de plusieurs facteurs (géologiques, anthropiques, etc.). De plus, la dérivation des séries temporelles de déplacement comporte des étapes entachées d'incertitudes (p. ex., orthorectification, les limites de la corrélation d'images). Toutes ces erreurs se combinent aux signaux que l'on essaie de détecter. Dans cette partie, le débruitage des données sera posé comme un problème de séparation de sources et sera résolu à l'aide d'une méthode statistique appelée \textbf{décomposition en composantes independantes} (ICA).
+
+\section{Décomposition en composantes indépendantes}
+\subsection{Problème et définitions}
+ICA est souvent présenté en utilisant le \textit{cocktail party problem}. Lors d'une telle soirée, on dispose $P$ microphones dans une salle dense, où $N$ personnes discutent par groupes de tailles diverses. Chaque microphone enregistre la superposition des discours des personnes à ses alentours et le problème consiste à retrouver la voix de chaque personne. Mathématiquement, ce problème est exprimé par 
+
+\[ X = A S, \]
+
+où $\textbf{X}$ est la matrice ($p\times p)$ représentant les signaux mélangés (les observations),
+$\textbf{A}$ est la matrice de mélange ($p \times p$), $\textbf{S}$ est la matrice des signaux sources.
+
+Connaisant les signaux $x_{1}, x_{2},\ldots x_{N}$ de $X$, le but de ICA est d'estimer l'inverse de la matrice de mélange $A$. Pour estimer cette matrice, ICA se base sur les hypothèses suivantes: l'indépendance statistique et la non-gaussianité des sources.
+
+La première hypothèse stipule que les sources que l'on cherche à extraire doivent être statistiquement indépendantes. On dit que deux variables $x$ et $y$ sont statistiquement indépendantes si $x$ n'apporte aucune information sur $y$ et vice-versa. \textbf{L'indépendance statistique ne doit pas être confondue avec la décorrélation}. Deux variables sont corrélées si leur covariance est nulle. La décorrélation est une version faible de l'indépendance statistique : deux variables statistiquement indépendantes sont nécessairement décorrélées mais l'inverse n'est pas toujours vrai.
+
+La seconde hypothèse découle de considérations mathématiques. La non-gaussianité permet de mésurer de combien une distribution s'éloigne d'une distribution gaussienne. On peut la mésurer en utilisant l'entropie négative ou le kurtosis (coefficient d'applatissement). 
+\subsection{Algorithme}
+ICA construit la matrice $\boldsymbol{W}$ (inverse de la matrice A) en estimant itérativement chacune des ses lignes $\boldsymbol{w^T}$. Le vecteur $\boldsymbol{w^T}$ est construit de manière à maximiser la non-gaussianité du signal $\boldsymbol{w^TX}$ sous la contrainte $||\boldsymbol{w}||=\mathsf{1}$. L'algorithme est le suivant :
+
+\begin{algorithm}[H]
+\KwIn{Données $X$, nombre de sources $N$, nombre d'itérations $max\_iter$, tolérance $tol$}
+\KwOut{Sources dé-mixées $S$}
+
+    Centrer les données  $ X = X - E \{X \}$ \\
+    Blanchir les données $z = VX$ \\
+    Choisir une fonction non-linéaire g \\
+    Initialiser aléatoirement $w$ avec $||w||=\mathsf{1}$ \\
+    Mettre à jour $w\leftarrow E \{zg(w^Tz)\} - E\{g'(w^Tz)\}$ \\
+    Normaliser $w\leftarrow \frac{w}{||w||}$ \\
+    Répéter les étapes (5) et (6) $max\_iter$ fois tant que le critère de convergence est non satisfait\\
+    Répéter l'étape (7) $N$ fois\\
+    \Return{$S = WX$}
+\caption{ICA}
+\end{algorithm}
+
+Les étapes (1) et (2) sont des étapes de pré-processing. L'étape (2) transforme, par une opération linéaire, le  vecteur  centré  résultant de l'étape (1) en  un vecteur dont les composantes sont décorrélées deux à deux et de variance unité. L'initialisation aléatoire de $w$ à l'étape (4) est à l'origine de l'abscence d'ordre des composantes indépendantes. En effet, pour des runs différents, l'initialisation change et donc \textbf{l'ordre dans lequel les composantes sont calculées varie}. A l'étape (7), la convergence est atteinte lorsque $w$ est orthogonal. Il est important de noter que \textbf{la solution trouvée à l'étape (7) est un minimum local}. Par conséquent, les sources extraites dépendent aussi de l'initialisation et ne sont donc pas nécessairement significatives.
+
+\subsection{Comparaison avec l'analyse en composantes principales}
+Le problème de séparation de sources peut aussi être résolu par l'ACP mais les sources extraites par les deux méthodes sont différentes. Ceci s'explique par les difference entre les deux approches. L'ACP cherche à trouver les axes qui expliquent le mieux la dispersion des données en se basant sur la variance expliquée par chaque axe. ICA cherche à séparer les données en maximisant la non-gaussianité de chaque source. L' ACP présente l'avantage de pouvoir trier les sources par ordre d'importance : les axes les plus importants sont ceux qui expliquent le plus la variance des données. Contrairement à l'ACP, les composantes de ICA ne sont pas ordonnées.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{ica_vs_pca.png}
+  \caption{Simulation d'un problème de séparation de sources avec ICA et ACP. Les vraies sources sont deux processus extremement non-gaussiens. Les sources reconstituées par ICA sont plus proches des vraies sources. (source : scikit-learn.org)}
+\end{figure}
+
+\section{Détermination du nombre optimal de sources}
+La détermination du nombre de sources est une étape cruciale avant d’utiliser ICA. En effet, extraire très peu de sources peut conduire à des signaux non pures, alors que calculer trop de sources peut sur-décomposer les sources intéressantes et introduire du bruit.
+
+On trouve plusieurs approches dans la litterature pour essayer de résoudre ce problème. En faisant varier le nombre de sources, on observe une convergence des signaux reconstitués. On peut alors choisir un nombre de sources qui permet d'atteindre la convergence suivant un critère donné. Dans notre cas, cette méthode est coûteuse en temps et en mémoire parce que nous travaillons avec un grand nombre de séries temporelles. Si on dispose d'un modèle de prédiction, on peut alors définir le nombre optimal de sources comme celui pour lequel le modèle donne les meilleurs résultats.
+
+L'approche que nous allons utiliser s'inspire de la méthode de sélection du nombre  de sources implémentée logiciel Icasso \cite{ICASSO} et d'une variante utilisée dans (....). Elle repose sur le fait que le nombre optimal de sources permet d'avoir des sources qui varient très peu avec l'initialisation. Autrement dit, si on fixe un nombre de sources et on applique ICA plusieurs fois sur le même jeu de données mais avec des initialisations différentes, on peut regrouper les sources qui se ressemblent à l'aide d'un algorithme de clustering. Chaque cluster trouvé représente alors une source dont la significativité peut-être estimée par la compacité et l'isolation du cluster. Les premières étapes de Icasso sont décrites dans l'algorithme ci-dessous (les étapes concernant la visualisation ont été ignorées).
+
+\begin{algorithm}[H]
+\KwIn{Données $D$, nombre de sources minimum $M_{min}$, nombre de sources maximum $M_{max}$, nombre d'itérations $K$}
+\KwOut{Nombre de sources optimal}
+Appliquer $\boldsymbol{K}$ fois ICA sur $D$ avec $M$ sources et des \textbf{initialisations différentes} \\
+Clusteriser les $\boldsymbol{M \times K}$ composantes indépendantes calculées en $M$ clusters\\
+Pour chaque cluster $\boldsymbol{C_{k}}$ trouvé, calculer sa stabilité $\boldsymbol{I_{q}(C_{k})}$ \\
+Calculer la stabilité moyenne du clustering $\boldsymbol{S(M)}$ \par
+Répéter les étapes précédentes pour chaque $M$ compris entre $M_{min}$ et $M_{max}$
+\caption{Estimation du nombre de sources}
+\end{algorithm}
+\newpage
+
+ A l'étape (2), l'algorithme de clustering est laissé au choix de l'utilisateur (Icasso utilise le clustering hiérarchique). Les sources sont comparées en utilisant la mésure de dissimilarité suivante : $\mathsf{1} - |r_{ij}|$ où $r_{ij}$ représente le coéfficient de corrélation de Pearson ou Spearmann entre deux sources $i$ et $j$. $I_{q}$ et $S(M)$ sont calculés de la manière suivante :
+\[ I_{q}(C_{k}) = \frac{\mathsf{1}}{|C_{k}|^2} \sum_{i, j \in C_{k}}|r_{ij}|  -  \frac{\mathsf{1}}{|C_{k}|\sum_{l \neq k}|C_{l}|} \sum_{i \in C_{k}}\sum_{j \neq C_{k}}|r_{ij}| \]
+\[ S(M) = \frac{\mathsf{1}}{M}\sum_{k}I_{q}(C_{k}) \]
+
+Le premier terme de $I_{q}$ correspond à la similarité intra-cluster (compacité) et le second à la similarité inter-cluster (isolation). Si toutes les sources du cluster $C_{k}$ sont parfaitement corrélées entre elles ($|r_{ij}| = \mathsf{1}$) et complètement décorrélées des autres sources ($|r_{ij}| = \mathsf{0})$ alors le clustering est parfait et $I_{q} = \mathsf{1}$. $S(M)$ est la moyenne des stabilités pour un clustering donné.
+
+\section{Sélection des sources}
+
+
+\chapter{Détection des glissements}
+Notre approche pour détecter les glissements de terrain comporte deux grandes étapes : le filtrage et le clustering des données. Le filtrage permettra de réduire considérablement le bruit dans les données et sera réalisé à l'aide d'outils statistiques. Le clustering permettra de former les régions susceptibles d'être des glissements de terrain et sera mis en oeuvre en utilisant le partitionnement par densité.
+
+\section{Identification des profils de déplacement}
+Les mouvements du sol dépendent de plusieurs paramètres et peuvent varier d'une zone à une autre. De manière générale, un profil de déplacement présentant une tendance linéaire (eventuellement à laquelle peuvent s'ajouter des variations saisonnières) a de fortes chances d'être un glissement. Comme nos séries temporelles sont géoréférencées, il est possible de les inspecter manuellement. On peut afficher chaque pixel dans Google Earth. Grâce à cette inspection, nous avons pu identifié les profils de déplacement suivants : a) les déplacements linéaires au cours du temps avec des variations de vitesse; b) les déplacements montrant un caractère périodique; c) les déplacements erratiques; d) les déplacements constants.
+
+La majorité des déplacements linéaires sont situés dans le glissement de La Valette. On en trouve aussi dans certaines zones couvertes par la végétation. Les déplacements avec de grandes fluctuations peuvent correspondre à des mouvements gravitaires; on les observe principalement sur des pentes instables (mouvement d'éboulis ou de blocs de roches). Les déplacement erratiques semblent correspondre à des pixels immobiles.
+
+\begin{figure}[!h]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{linear.png}
+    \caption{type linéaire.}
+    \label{fig:f1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{periodical.png}
+    \caption{type periodique.}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Les différents types de profil de déplacement observés dans les données.}
+\end{figure}
+
+\begin{figure}[!h]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{random.png}
+    \caption{type aléatoire.}
+    \label{fig:f1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{constant.png}
+    \caption{type constant.}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Les différents types de profil de déplacement observés dans les données (suite).}
+\end{figure}
+
+\newpage
+\section{Filtrage des données}
+\subsection{Filtrage des vitesses}
+Le filtrage des vitesses consiste à supprimer les pixels ayant des taux de déplacement faibles. En effet, de tels pixels ont peu de chance d'appartenir à un glissement. Si on note $\sigma$ l'écart-type des vitesses moyennes, $n$ est un entier naturel et $v$ la vitesse moyenne d'un pixel, le filtrage s'écrit simplement :
+\[  v > n \times \sigma  \]
+
+Les vitesses utilisées pour calculer $\sigma$ sont celles dérivées par MPIC-OPT. Si on applique des transformations sur les séries temporelles, il faut recalculer les vitesses moyennes dans les deux directions.
+
+\subsection{Test de significativité des vitesses moyennes}
+Les vitesses moyennes étant estimées par regression linéaire, il apparaît important de s'interroger sur leur significativité statistique. On réalise le Test de Fischer pour évaluer la significativité des coefficients d'une régression linéaire. Dans le cas d'une régression linéaire simple, seule la pente $\beta$ est concernée. Comme tout test statistique, le test de Fischer comporte une hypothèse nulle ${H_{\mathsf{0}}}$ et une hypothèse alternative $H_{\mathsf{1}}$ :
+	\[ H_{\mathsf{0}} : \beta =  \mathsf{0} \]
+	\[ H_{\mathsf{1}} : \beta \neq \mathsf{0} \]
+L'hyopthèse ${H_{\mathsf{0}}}$ est rejetée si la p-valeur associée à la statistique de Fischer est inférieure à un seuil $\alpha$  prédéterminé, $\alpha = 5\%$ dans la plupart des cas. Dans notre cas,  
+le rejet de ${H_{\mathsf{0}}}$ signifie que la vitesse moyenne calculée n'est pas significative. Autrement dit, la série temporelle des déplacements ne suit pas une évolution linéaire significative. L'hypothèse alternative ${H_{\mathsf{1}}}$ est acceptée si l'hyopthèse nulle ${H_{\mathsf{0}}}$ est rejetée.
+
+On note $p_{ns}$ et $p_{ew}$ les p-valeurs respectives des régressions linéaires des composantes Nord-Sud et Est-Ouest d'un pixel. On considère qu'une pixel se déplace sous l'effet de la gravité  si au moins une des composantes de son déplacement a une vitesse significative. On peut énoncer la condition de filtrage  de cette manière :
+\[ \left(p_{ns} < \alpha \right) \vee \left(p_{ew} < \alpha \right) \]
+
+\subsection{Elimination des séries chaotiques}
+Les pixels ayant une comportement chaotique peuvent passer le filtre précédent. Ceci s'explique en partie par le fait que la régression linéaire est sensible aux outliers. Pour améliorer le filtrage de ce type de pixels, on peut supposer que leurs séries temporelles auront des distributions plus aplaties à cause  des oscillations autour de 0. L'aplatissement d'une distribution est quantifiée par une grandeur statistique appelée le kurtosis ou coefficient d'aplatissement. Si on considère une variable aléatoire réelle $X$ d'espérance $\mu$ et d'ecart-type $\sigma$, son kurtosis est défini par :
+
+\[ \beta_{2} = \mathbb{E} \left[ \left( \dfrac{X - \mu}{\sigma} \right)^{4}  \right] \]
+
+Si les coefficients d'aplatissement $\beta_{2}{ns}$, $\beta_{2}{ew}$  respectifs des composantes $ns$ et $ew$ sont simultanément négatifs, il s'agit probalement d'un pixel chaotique. Nous considérons qu'un pixel est chaotique si au moins une des composantes de son déplacement est a un kurtosis négative :
+\[  \left(\beta_{2}{ns} > 0 \right)  \vee  \left( \beta_{2}{ew} > 0 \right) \]
+
+
+\subsection{Filtrage morphologique}
+Le filtrage morphologique consiste à utiliser la pente topographique et son orientation par rapport au Nord (azimut) pour filtrer les pixels. Ces deux valeurs sont calculés à partir d'un modèle numérique de terrain (MNT).
+
+La pente topographique $\alpha$ représente l'inclinaison d'un objet par rapport à l'horizontal. Elle varie entre 0$^{\circ}$ et 90$^{\circ}$. Comme les glissements sont par définition localisés dans les zones abruptes, la pente topograhique permet de supprimer les pixels qui sont situés dans les régions plates relativement à une pente minimum fixée $\alpha_{min}$. Le critère de  sélection est donc :
+\[ \alpha > \alpha_{min} \]
+
+L'azimuth $\gamma_{mnt}$ est mésuré depuis le Nord en dégrés. Sa valeur est comprise entre 0$^{\circ}$ et 360$^{\circ}$.
+Une valeur de 0$^{\circ}$ signifie que le mouvement est orienté dans la direction Sud-Nord; une valeur de 90$^{\circ}$ dans la direction Ouest-Est. Il permet de vérifier que la direction moyenne d'un pixel $\gamma_{c}$ se deplaçant sous l'effet de la gravité est proche ou égale à $\gamma_{mnt}$. Cette direction est calculé à partir des composantes de son vecteur déplacement en utilisant la relation. 
+
+\[ \tan \left(\gamma_c \right) = \dfrac{ew[i]}{ns[i]} = \dfrac{v_{ew}}{v_{ns}} \: \forall i \in  [\![0;n]\!]   \]
+
+Etant donnée qu'une série temporelle fournie plus d'informations, nous avons préféré dériver la variation de l'azimuth au cours du temps au lieu d'une simple valeur. En fixant une tolérance $\delta$ et pourcentage seuil $p_s$, on obtient le crtière suivant :
+
+\[ |\gamma_{mnt} - \gamma_{c}| < \delta   \]
+
+Il est peu probable que tous les échantillons de la série temporelle azimutale vérifient la condition précédente. Pour cette raison, nous avons donc décidé de considerer un pixel comme non bruité si le proportion de points vérifiant la condition ci-dessus est supérieure à un certain seuil $p_s$.
+
+\section{Clustering}
+Le clustering est une mthode statistique qui permet de diviser un ensemble de données en des sous-ensembles partageant des caractéristiques communes en utlisant une mésure de similarité ou une distance pour comparer les objets entre-eux.
+
+Il existe plusieurs familles d'algorithmes de clustering parmi lesquels on peut citer : les  algorithmes centroides, les algorithmes hiérarchiques et les algorithmes à densité. Dans cette partie, nous nous focaliserons sur DBSCAN (density-based  spatial clustering of applications with noise) et HDBSCAN (hierarchical DBSCAN) qui sont deux algorithmes appartenant à la dernière famille.
+
+\subsection{Clustering par densité}
+Le clustering par densité repose sur l'idée suivante : deux points appartiennent au même cluster si on peut créer un chemin pour passer de l'un à l'autre de proche en proche. Cette approche débouche sur les notions d'\textbf{epsilon-voisinage} et de \textbf{connexion par densité}.
+
+Si on considère $\epsilon$ un réel strictement positif, on appelle epsilon-voisinage d'un point $x$ l'ensemble des points du jeu de données qui sont situés à une distance inférieure à $x$ :
+\[ {N_{\epsilon}}\left(x\right) = \left\lbrace u \in X | d(u,x) < \epsilon \right\rbrace  \]
+
+Si on considère un entier naturel $n_{min}$, on dit que doit point $x$ et $y$ sont connectés par densité si l'on peut passer de l'un à l'autre par une suite d'$\epsilon$-voisinage contenant chacun au moins $n_{min}$ points :
+\[ |{N_{\epsilon}}\left(x\right)| \geq n_{min}  \]
+
+Grâce aux notions définies précédemment, les algorithmes de clustering par densité possèdent des avantages incontournables : le nombre de clusters n'est pas prédéfini et les clusters trouvés peuvent être non-convexes.
+
+\subsection{DBSCAN}
+DBSCAN est un algorithme de clustering par densité. Il a été proposé en 1996. Ses champs d'applications sont divers : analyse cartographique, analyse de donnée, segmentation d'image, détection d'anomalies, etc. \par
+DBSCAN itère sur les points du jeu de données. Pour chaque point, il construit l'ensemble des points connectés par densité à ce point : il calcule l' $\epsilon$-voisinage de ce point, puis si ce  voisinage contient plus de $n_{min}$ points, les $\epsilon$-voisinages de chacun d'eux pour pouvoir agrandir le cluster. Si un point a moins de $n_{min}$ voisins, alors il est considéré comme du bruit.
+
+Le choix des paramètres $\epsilon$ et $n_{min}$ n'est pas évident. Pour que l'algorithme trouve les clusters pertinents, il faut les choisir de manière à avoir assez de points intérieurs. Ce  qui revient à choisir $n_{min}$ assez petit ou $\epsilon$ très grand. Cependant le fait de fixer $\epsilon$ ne permet pas à l'algorithme de trouver des clusters de densités différentes. \\
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{dbscan.png}
+  \caption{Les points A sont les points déjà dans le cluster. Les points B et C sont atteignables depuis A et appartiennent donc au même cluster. Le point N est une donnée aberrante puisque son epsilon voisinage ne contient pas au moins $n_{min}$ points. Source : wikipedia}
+\end{figure}
+
+\begin{algorithm}[H]
+\KwIn{epsilon-voisinage $\epsilon$ , nombre de points minimum $n_{min}$}
+\KwOut{clusters, bruit}
+Prendre un point $x$ qui n'a pas été visité \\
+Construire $N_{\epsilon}\left(x\right)$ \\
+\If{$|N_{\epsilon}\left(x\right)| < n_{min}$ }
+ {
+   	marquer $x$ comme du bruit
+ }
+  \Else{
+ Initialiser $C = \left\lbrace x \right\rbrace$ \\
+ agrandir le cluster $C$
+  }
+Ajouter $C$ à la liste des clusters \\
+Marquer tous les points de $C$ comme visités\\
+Répéter les étapes de (1) à (3) tant qu'il y a des points non visités\\
+\caption{DBSCAN}
+\end{algorithm}
+
+\subsection{HDBSCAN}
+HDBSCAN est un algorithme hybride : il étend DBSCAN en le convertissant en un algorithme de classification hiérarchique, puis il utilise une technique basée sur la stabilité des clusters pour déterminer les regroupements les plus pertinents. Son fonctionnement étant complexe, nous nous limiterons à expliquer comment il parvient à obtenir des meilleures clusters que DBSCAN.
+
+Avec DBSCAN, il faut imperativement choisir le bonne valeur de $\epsilon$ pour obtenir les clusters les plus pertinents. Mais comme mentionné précédemment, cette valeur n'est pas évidente à fixer. Mieux encore, cette stratégie s'avère peu efficace lorsque la densité des clusters varie. Dans l'exemple ci-dessous, on peut fusionner les clusters blue et jaune ou ne pas reussir à capturer le cluster rouge.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{threshold.png}
+  \caption{Les clusters trouvés dépendent du choix de $\lambda$ (équivalent de $\epsilon$). Dans DBSCAN, cette valeur est fixée dès le debut en paramètre.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{vary_desity.png}
+  \caption{Trois clusters avec des densités significativement différentes.}
+\end{figure}
+Pour résoudre ce problème, HDBSCAN utilise plusieurs valeurs de $\epsilon$ et cherche à déterminer quels sont les sommets qu'ils faut séparer ou fusionner. Pour ce faire, il utilise le critère d'aggrégation suivant:
+si la somme des volumes de deux sommets est supérieure au volume de leur base alors on peut les considérer comme des montagnes distinctes (on doit les séparer). Dans le cas contraire, il s'agit juste de deux sommets d'une même montagne (on doit les fusionner).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{heuristic.png}
+  \caption{Il semble avoir trois clusters (à gauche) et deux clusters (à droite). Le critère d'aggrégation est visible en dessous de chaque image.}
+\end{figure}
+
+\chapter{Résultats et Discussion}
+\section{Débruitage}
+ICA fonctionne avec plusieurs paramètres. Pour nos tests, nous avons utilisé les paramètres $n\_components$ (nombre de composantes indépendantes), $random\_state$ (initialisation), $tol$ (tolérance contrôlant le critère de convergence) et $max\_iter$ (le nombre d’itérations).
+
+Pour les tests, le nombre d'itérations de ICA à été fixé à 300 (la valeur par défaut est 200). La tolérance par défaut a été conservée (0.0001).  On rappelle que  si les paramètres tol et $max\_iter$ sont mal choisis, ICA ne converge pas et le résultat n’est pas fiable.
+
+Pour la détermination du nombre optimal de sources, le nombre d’itérations a été fixé à 50  et le nombre de composantes indépendantes varie entre 2 et 30.  ICA a donc été exécutée  50 * 29 = 1450 fois. Le clustering des composantes indépendantes a été réalisé en utilisant le clustering hiérarchique. Le lien moyen a été choisi comme métrique d'aggrégation des clusters. Pour comparer les résultats, nous avons utilisé le coefficient de silhouette. Le coefficient de silhouette varie entre  -1 et 1 et  le coefficient défini entre 0 et 1. Pour les deux indices de validation, le nombre de clusters optimal est celui qui maximise la valeur de l'indice.
+
+Les résultats indiquent que le nombre de clusters optimal pour les données de la direction Est-Ouest vaut 12 en utilisant le coefficient défini et 2 en utilisant le coefficient de silhouette. Dans la direction Nord-Sud, on obtient respectivement 19 et 2 clusters avec le coefficient défini et le coefficient de silhouette. On remarque que les valeurs du coefficient sont très faibles ($<$ 0.6) et que celles du coefficient de silhouette décroissent et reste relativement élevées ($>$ 0.7).
+
+\section{Filtrage et clustering}
+On adopte les notations suivantes pour des raisons pratiques : le test de significativité des vitesses moyennes sera noté $F_{regression}$, le filtre sur les variations azimutales $F_{azimut}$, le filtre sur la pente topographique $F_{pente}$, le filtre sur le kurtosis $F_{kurtosis}$ et le filtre sur les vitesses moyennes $F_{vitesse}$. Si $F_1, F_2,\ldots, F_n$ sont $n$ filtres, on note $F_1 \wedge F_2 \wedge \ldots \wedge F_n$ le filtre qui laisse passer les pixels qui vérifient les conditions  de chaque filtre $F_i$.
+
+Pour le filtrage des pixels, nous avons testé trois scénarios. Dans le premier scénario, nous avons appliqué individuellement les filtres $F_{regression}$, $F_{azimut}$ et $F_{kurtosis}$. Dans le second scénario, nous avons utilisé le filtre $F_{kurtosis} \wedge F_{regression}$. Dans le troisième scénario, nous avons appliqué les filtres du premier scénario simultanément. Afin de pouvoir détecter les micro-glissements nous n'avons pas appliqué le filtre $F_{vitesse}$. Le filtre $F_{pente}$ est inutile car il n'y a quasiment pas de zones plates.
+
+Dans l’étape du clustering, nous avons travaillé uniquement avec les paramètres $min\_cluster\_size$ et $min\_samples$ de HDBSCAN. Le paramètre $min\_cluster\_size$ permet de fixer la taille minimum d'un cluster. Le paramètre $min\_samples$ permet de contrôler la densité des clusters; plus il est grand plus les clusters trouvés sont denses et plus on a des points catégorisés comme du bruit. Nous avons testé plusieurs valeurs de $min\_cluster\_size$, la valeur 60 a été retenue car elle donne les meilleurs résultats. Le paramètre  $min\_samples$ a été fixé 1 pour réduire le nombre de pixels catégorisés comme du bruit. Pour comparer les séries temporelles, la distance euclidienne a été préférée à la distance élastique (DTW) pour des raisons de performance.
+
+Les résultats du scénario (1) montre qu'aucun filtre appliqué individuellement ne parvient à éliminer le bruit efficacement. Dans le scénario (2), le glissement de La Valette et un micro-glissement situé à l'Ouest de La Valette sont détectés. La détection du micro-glissement est interessante car il est situé dans une zone végétalisée où la corrélation d'images donne de mauvais résultats (la végétation a pouvoir réflecteur très faible). De plus, la détection s'opère dès un seuil de confiance égale à $5\%$. L'augmentation du niveau de risque $\alpha$ ne permet pas d'avoir plus de pixels dans le glissement de La Valette. Au contraire, son augmentation introduit plus de bruit.
+
+Dans le scénario (3), seul le glissement de La Valette est détecté. Dans les scénarios (2) et (3), on remarque que seule la partie supérieure du glissement de La valette est détectée. En effet, dans cette partie du glissement, les déplacements sont quasi linéaires et les valeurs du kurtosis sont positives et très élévées. Dans la partie inférieure du glissement, les déplacements sont moins linéaires (plus chaotiques) et les taux de déplacements relativement faibles. Le filtre $F_{regression}$ est en grande partie responsable de la non-détection de cette partie.
+
+Globalement, les clusters trouvés ne sont pas toujours spatialement cohérent. Ceci peut s'expliquer par le fait que le clustering est réalisé en domaine temporel et non spatial.
+
+\begin{figure}[!h]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_kurtosis_0.jpg}
+    \caption{$\alpha = $ 0.05.}
+    \label{fig:f1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_kurtosis_1.jpg}
+    \caption{$\alpha = $ 0.1.}
+    \label{fig:f2}
+  \end{subfigure}
+   \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_kurtosis_2.jpg}
+    \caption{$\alpha = $ 0.15.}
+    \label{fig:f2}
+  \end{subfigure}
+    \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_kurtosis_3.jpg}
+    \caption{$\alpha = $ 0.3.}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Filtre $F_{regression} \wedge F_{kurtosis}$ pour différentes valeurs du niveau de risque $\alpha$.}
+\end{figure}
+
+\begin{figure}[!h]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_azimut_0.jpg}
+    \caption{$\alpha = $ 0.05.}
+    \label{fig:f1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_reg_azimut_1.jpg}
+    \caption{$\alpha = $ 0.1.}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Filtre $F_{regression} \wedge F_{azimut}$ pour différentes valeurs de $\alpha$, $tol$ et $p_r$.}
+\end{figure}
+
+\begin{figure}[!h]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_vel_reg_kurtosis_0.jpg}
+    \caption{$\alpha = $ 0.05.}
+    \label{fig:f1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{test_vel_reg_kurtosis_1.jpg}
+    \caption{$\alpha = $ 0.1.}
+    \label{fig:f2}
+  \end{subfigure}
+  \caption{Filtre $F_{vitesse} \wedge F_{regression} \wedge  F_{kurtosis}$ pour différentes valeurs de $\alpha$ et $|v| > \sigma $.}
+\end{figure}
+\newpage
+\section{Discussion}
+\subsection{Débruitage}
+\subsubsection{Choix des paramètres}
+L'intervalle du nombre de sources peut poser problème dans cet algorithme. En effet, pour un nombre de sources donné, ICA peut ne pas converger si la tolérance est mal choisie. Dans notre cas, toutes les exécutions de ICA ont convergé en conservant la valeur par défaut de la tolérance. On insistera aussi sur le fait que le nombre d'itérations n'ait pas été choisi assez grand. La significativité des résultats n'est donc pas garantie.
+
+\subsubsection{Qualité du clustering}
+Les auteurs du logiciel ICASSO proposent d'utiliser la corrélation absolue (1 - $|r|$) pour comparer deux sources. Mais la présence de la valeur absolue dans la formule soulève naturellement une question : deux sources ayant une corrélation (Spearmann ou Pearson) égale à -1 sont-elles identiques ? Comme l'ont montré les résultats, le coefficient prédéfini et le coefficient de silhouette sont en désaccord. Il apparaît donc important de choisir un indice de validation adapté aux données.
+
+Les résultats ont aussi montré que le nombre de composantes indépendantes trouvés dans les deux directions ne sont pas nécessairement identiques. Ceci peut s'expliquer par le fait que le bruit n'est pas le même dans les deux directions ou qu'il y a du mouvement dans une seule direction. Dans notre cas, il pourrait s'agir du bruit vu qu'il y a clairement du mouvement dans les deux directions.
+
+\subsection{Détection}
+\subsubsection{Linéarité des déplacements}
+La p-valeur calculée lors du test de signicativité d'une regression linéaire dépend des résidus du modèle. Les déplacements très bruités exhibant une tendance linéaire peuvent ne pas être détecté par le filtre. Pour prendre en compte cet aspect, nous avons fait varier le niveau de risque $\alpha$ qui est souvent fixé à 5\%. La valeur du niveau de risque $\alpha$ doit permettre d'améliorer la détection. Etant donnée que les données sont très bruités, il n'est pas totalement impertinent de choisir des valeurs supérieure à 5\%. Les tests réalisés avec des valeurs plus grandes (10\%, 15\%, 30\%) ont permis de compter plus de pixels dans le glissement de La Valette mais elles ont en même temps  augmenté le nombre de faux-positifs. Si les séries temporelles sont à la fois cycliques et linéaires, il faut nécessairement les désaisonnaliser avant d'appliquer un modèle de regression linéaire.
+
+\subsubsection{Qualité des données}
+Les filtres qui permettent de caractériser un glissement  sont le test de significativité des vitesses moyennes et l'azimut. Le niveau de bruit dans les données peut amener à choisir des valeurs de la tolérance azimutale peu pertinentes (une valeur pertinente de ce paramètre se situe entre 0 et 45°). La corrélation d'images n'est pas une méthode précise. Les données montrent que l'information la plus interessante pour distinguer un pixel mobile d'un pixel immobile reste la tendance monotone de la série temporelle.
+
+\subsubsection{Combinaison de filtres}
+L'application simultanée de tous les filtres ne conduit pas nécessairement à de meilleurs résultats. La  condition de filtrage globale est très contraignante et les filtres ne sont pas toujours en accord. Si on possède plusieurs filtres, il faudrait théoriquement tester toutes combinaisons possibles afin de trouver le meilleur filtre. Dans notre cas, nous n'avons testé que deux combinaisons conduisant chacun à des résultats différents.
+
+\subsubsection{Profils de vitesse moyenne}
+Le clustering est réalisé sur les profils de vitesse moyenne calculés à partir des déplacements Est-Ouest et Nord-Sud. Cette méthode a permis de passer de deux séries temporelles (les deux composantes du déplacement) à une seule mais elle repose sur l'hypothèse de la linéarité des déplacements qui n'est pas toujours vérifiée. Pour éviter d'émettre des hypothèses sur le régime de la déformation (linéaire, quadratique, etc.), on peut envisager d'effectuer directement le clustering sur chaque composante du déplacement (Il peut avoir du mouvement sur une composante et pas une autre). Autrement dit, clusteriser les séries temporelles de la composante Nord-Sud et ceux de la composante Est-Ouest séparement. Il faudra ensuite définir une méthode pour unifier les clusters trouvés. 
+
+\begin{thebibliography}{9} 
+\bibitem{RMS}Gokhan Aslan, Michael Foumelis, Daniel Raucoules, Marcello De Michele1, Severine Bernardie1and, Ziyadin Cakir : Landslide Mapping and Monitoring Using Persistent Scatterer Interferometry (PSI) Technique in the French Alps.
+
+\bibitem{PF}Provost Floriane, Michea David, Malet Jean-Philippe, Boissier Enguerran, Pointal  Elisabeth, Stumpf Andre, Pacini  Fabrizio,  Doin Marie-Pierre, Lacroix Pascal, Bally Philippe : Terrain deformation measurements from optical satellite imagery : the MPIC-OPT processing services for geohazards monitoring.
+
+\bibitem{BNT}Noélie Bontemps, Pascal Lacroix, Marie-Pierre Doin : Inversion of deformationfields time-series from optical images, and application to the long term kinematics of slow-moving landslides in Peru.
+
+\bibitem{PL}Pascal Lacroixa, Grégory Bièvrea, Erwan Pathiera, Ulrich Kniessb, Denis Jongmansa : Use of Sentinel-2 images for the detection of precursory motions before landslide failures.
+
+\bibitem{PFP}Floriane Provost, Jean-Philippe Malet : Spatiotemporal ICA/PCA decomposition of optical displacement field stacks: perspective for landslide time series inversion.
+
+\bibitem{TP}Gabriella Milone and Germana Scepi : A Clustering Approach for Studying Ground Deformation Trends in Campania Region trough PS-InSAR Time Series Analysis.
+
+\bibitem{INTFC}M. Berti, A. Corsini, S. Franceschini, and J. P. Iannacone : Automated classification of Persistent Scatterers Interferometry time series.
+
+\bibitem{ICA}Ulykbek Kairov, Laura Cantini, Alessandro Greco, Askhat Molkenov, Urszula Czerwinska, Emmanuel Barillot1and Andrei Zinovyev : Determining the optimal number of independent components for reproducible transcriptomic data analysis.
+
+\bibitem{ICASSO}Johan Himberg and Aapo Hyv arinen : ICASSO: SOFTWARE FOR INVESTIGATINGTHE RELIABILITY OF ICA ESTIMATES BY CLUSTERING AND VISUALIZATION.
+
+\end{thebibliography}
+\bibliographystyle{unsrt}
+\bibliography{sample}
+
+\end{document}
+
+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
