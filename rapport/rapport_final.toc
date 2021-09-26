@@ -38,7 +38,6 @@
 \contentsline {subsubsection}{Qualit\IeC {\'e} du clustering}{22}{subsubsection*.17}% 
 \contentsline {subsection}{\numberline {7.3.2}D\IeC {\'e}tection}{23}{subsection.7.3.2}% 
 \contentsline {subsubsection}{Lin\IeC {\'e}arit\IeC {\'e} des d\IeC {\'e}placements}{23}{subsubsection*.18}% 
-\contentsline {subsubsection}{Qualit\IeC {\'e} des donn\IeC {\'e}es}{23}{subsubsection*.19}% 
-\contentsline {subsubsection}{Combinaison de filtres}{23}{subsubsection*.20}% 
-\contentsline {subsubsection}{Profils de vitesse moyenne}{23}{subsubsection*.21}% 
-\contentsline {chapter}{Bibliographie}{24}{chapter*.22}% 
+\contentsline {subsubsection}{Combinaison de filtres}{23}{subsubsection*.19}% 
+\contentsline {subsubsection}{Profils de vitesse moyenne}{23}{subsubsection*.20}% 
+\contentsline {chapter}{Bibliographie}{24}{chapter*.21}% 
