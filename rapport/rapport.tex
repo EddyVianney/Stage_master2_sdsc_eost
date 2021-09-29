@@ -27,6 +27,8 @@
 \titleformat{\section}{\bfseries\Large}{\thesection.}{0.5em}{}
 \titleformat{\subsubsection}{}{\thesubsubsection}{1em}{\itshape}
 \renewcommand\bibname{References}
+\usepackage{glossaries}
+\makeglossaries
 \usepackage[%
 	colorlinks=true,
 	pdfborder={0,0,0},
@@ -318,7 +320,6 @@ Pour chaque résultat de Samarah , nous avons relancé une itération avec le je
 Les résultats  du jeu de données PHOSV2 obtenus sans contraintes montrent que tous les indices de similarité décroîssent quand le nombre de clusters augmente (Figure ~\ref{fig:criteriaEvolution}) .
 On remarque que $\Delta$ varie très peu pour un nombre de cluster donné . On note de très faibles valeurs entre 2 et 4 clusters pour le jeu de données PHOSV2 . Dans l'ensemble , il croît  quand le nombre de clusters augmente . Il vaut en moyenne  0,98 pour 2  clusters . L'ajout des contraintes aléatoires et non aléatoires n'affecte pas le comportement des critères de similarité  (Figure ~\ref{fig:phosvNoEvolution}).
 Sur le jeu NITRV1 , on note une décroissance rapide du coefficient de silhouette . La meilleure partition affiche une valeure inférieure à 0.4 (Figure ~\ref{fig:nitrvEvolution}).
-
 
 \begin{figure}[H]
   \centering
