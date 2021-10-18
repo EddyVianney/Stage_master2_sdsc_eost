@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2">
+    <Document id="33">
+        <Style id="36">
+            <IconStyle id="37">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="38">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="41">
+            <IconStyle id="42">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="43">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="46">
+            <IconStyle id="47">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="48">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="51">
+            <IconStyle id="52">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="53">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="56">
+            <IconStyle id="57">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="58">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="61">
+            <IconStyle id="62">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="63">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Style id="66">
+            <IconStyle id="67">
+                <colorMode>normal</colorMode>
+                <scale>1</scale>
+                <heading>0</heading>
+                <Icon id="68">
+                    <href>http://maps.google.com/mapfiles/ms/micons/yellow-dot.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Placemark id="35">
+            <description>23534</description>
+            <styleUrl>#36</styleUrl>
+            <Point id="34">
+                <coordinates>6.649289,44.414123,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="40">
+            <description>31112</description>
+            <styleUrl>#41</styleUrl>
+            <Point id="39">
+                <coordinates>6.647388,44.411843,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="45">
+            <description>43061</description>
+            <styleUrl>#46</styleUrl>
+            <Point id="44">
+                <coordinates>6.644276,44.408252,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="50">
+            <description>55869</description>
+            <styleUrl>#51</styleUrl>
+            <Point id="49">
+                <coordinates>6.639017,44.404458,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="55">
+            <description>284</description>
+            <styleUrl>#56</styleUrl>
+            <Point id="54">
+                <coordinates>6.663526,44.420869,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="60">
+            <description>16947</description>
+            <styleUrl>#61</styleUrl>
+            <Point id="59">
+                <coordinates>6.628979,44.416752,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="65">
+            <description>35000</description>
+            <styleUrl>#66</styleUrl>
+            <Point id="64">
+                <coordinates>6.658847,44.410306,0.0</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
